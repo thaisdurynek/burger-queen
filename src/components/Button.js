@@ -10,7 +10,7 @@ const Button = styled.button`
 `
 function Component() {
     return (
-        <Button></Button>
+        <Button>CLIQUE AQUI</Button>
     );
 };
 
