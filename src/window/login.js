@@ -33,7 +33,7 @@ const Login = () => {
     <Div>
       <Background />
       <Main>
-        <Title text="LOGIN" />
+        <Title text="Login" />
         <Forms>
           <Input type='email' placeholder='Email' />
           <Input type='password' placeholder='Senha' />
