@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-let firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBbKvTV4yELx0pTnsaQ0on1lv4meEDcpnc",
     authDomain: "labsap004-burger-queen.firebaseapp.com",
     databaseURL: "https://labsap004-burger-queen.firebaseio.com",
@@ -10,6 +10,7 @@ let firebaseConfig = {
     appId: "1:498040402131:web:96d7f822c828a7b0a3e426",
     measurementId: "G-XH5VRCDMBS"
   };
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  //firebase.analytics();
+
+  export default firebase;
