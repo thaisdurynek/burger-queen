@@ -28,22 +28,24 @@ const Forms = styled.form`
   flex-direction: column;
 `;
 
-const Login = () => {
-  return (
-    <Div>
-      <Background />
-      <Main>
-        <Title text="LOGIN" />
-        <Forms>
-          <Input type='email' placeholder='Email' />
-          <Input type='password' placeholder='Senha' />
-        </Forms>
-        <Error />
-        <Button text="Login" />
-        <Link text="Não possui cadastro? " link="Registre-se" />
-      </Main>
-    </Div>
-  );
+const Register = () => {
+	return (
+		<Div>
+			<Background />
+			<Main>
+				<Title text="REGISTRO" />
+				<Forms>
+					<Input type='text' placeholder='Nome' />
+					<Input type='email' placeholder='Email' />
+					<Input type='password' placeholder='Senha' />
+					<Input type='password' placeholder='Confirme sua senha' />
+				</Forms>
+				<Error />
+				<Button text="Registrar-se" />
+				<Link text="Já possui cadastro? " link="Faça Login" />
+			</Main>
+		</Div>
+	);
 };
 
-export default Login;
+export default Register;
