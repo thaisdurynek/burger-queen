@@ -11,10 +11,10 @@ const Button = styled.button`
     font-size: 18px;
 `;
 
-function Component(props) {
+function ButtonLogin(props) {
     return (
     <Button>{props.text}</Button>
     );
 };
 
-export default Component;
+export default ButtonLogin;

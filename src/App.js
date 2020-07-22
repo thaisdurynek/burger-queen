@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './components/Button.js'
+
+import Login from './window/login';
 
 const Container = styled.div`
   width: 100%;
@@ -10,9 +11,10 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Button text="Login"></Button>
+      <Login>
+        
+      </Login>
     </Container>
-  );
+  )
 };
-
 export default App;
