@@ -1,8 +1,9 @@
 import React from 'react';
-import Input from '../components/Input.js';
+import Input from '../components/auth/Input.js';
 import styled from 'styled-components';
-import image from '../assets/background 01.jpg';
-import logo from '../assets/logo.png';
+import Button from '../components/auth/Button.js'
+import Background from '../components/auth/Background.js';
+//import { injectGlobal } from 'styled-components';
 
 const Div = styled.section`
   display: flex;
@@ -11,7 +12,7 @@ const Div = styled.section`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-const Forms = styled.form`
+const Log = styled.div`
   flex-grow: 1;
   padding: 0% 10%;
   display: flex;
@@ -22,31 +23,23 @@ const Forms = styled.form`
   }
 `;
 
-const Logo = styled.div`
-  flex-grow: 1;
-  height: 100vh;
-  background-image: url("${image}");
-  background-size: cover;
-  background-repeat: no-repeat;
-  img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-  }
+const Forms = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Login = () => {
   return (
     <Div>
-      <Logo>
-        <img src={logo} alt='logo'></img>
-      </Logo>
-      <Forms>
-        <h1>Login</h1>
-        <Input type='email' placeholder='Email'/>
-        <Input type='password' placeholder='Password'/>
-      </Forms>
+      <Background></Background>
+      <Log>
+        <Forms>
+          <h1>Login</h1>
+          <Input type='email' placeholder='Email'/>
+          <Input type='password' placeholder='Password'/>
+          <Button text="Login"></Button>
+        </Forms>
+      </Log>
     </Div>
   )
 }
