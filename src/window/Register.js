@@ -30,10 +30,11 @@ const Forms = styled.form`
 
 const Radio = styled.div`
 	color: gray;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	div {
 		display: flex;
 		justify-content: space-evenly;
+		margin: 12px;
 	}
 `;
 
@@ -49,8 +50,8 @@ const Register = () => {
 					<Radio>
 						<p>Cargo:</p>
 						<div>
-							<Input type='radio' value='atendimento' name='cargo'/>
-							<Input type='radio' value='cozinha' name='cargo'/>
+							<Input type='radio' value=' Atendimento' name='cargo'/>
+							<Input type='radio' value=' Cozinha' name='cargo'/>
 						</div>
 					</Radio>
 					<Input type='password' placeholder='Senha' />
