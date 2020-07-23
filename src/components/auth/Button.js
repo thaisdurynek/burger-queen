@@ -10,7 +10,8 @@ const Button = styled.button`
     border-radius: 30px;
     color: #FFF;  
     font-size: 18px;
-    margin: 16px 0;
+    font-family: 'Inter', sans-serif;
+    margin: 38px 0 12px 0;
 `;
 
 function ButtonLogin(props) {
