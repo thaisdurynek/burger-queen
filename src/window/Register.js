@@ -28,6 +28,15 @@ const Forms = styled.form`
   flex-direction: column;
 `;
 
+const Radio = styled.div`
+	color: gray;
+	margin-bottom: 20px;
+	div {
+		display: flex;
+		justify-content: space-evenly;
+	}
+`;
+
 const Register = () => {
 	return (
 		<Div>
@@ -37,6 +46,13 @@ const Register = () => {
 				<Forms>
 					<Input type='text' placeholder='Nome' />
 					<Input type='email' placeholder='Email' />
+					<Radio>
+						<p>Cargo:</p>
+						<div>
+							<Input type='radio' value='atendimento' name='cargo'/>
+							<Input type='radio' value='cozinha' name='cargo'/>
+						</div>
+					</Radio>
 					<Input type='password' placeholder='Senha' />
 					<Input type='password' placeholder='Confirme sua senha' />
 				</Forms>

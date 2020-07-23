@@ -6,7 +6,6 @@ import Title from '../components/auth/Title.js';
 import Error from '../components/auth/Error.js';
 import Link from '../components/auth/Link.js';
 import Background from '../components/auth/Background.js';
-//import { injectGlobal } from 'styled-components';
 
 const Div = styled.section`
   display: flex;
