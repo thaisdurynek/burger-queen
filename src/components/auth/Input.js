@@ -9,17 +9,18 @@ const Inputs = styled.input`
   border: 1px solid #E8E8E8;
 `;
 
-// const Radio = styled.label`
-// 	display: flex;
-// 	justify-content: space-evenly;
-// `;
-
-
 const Input = (props) => {
   if(props.type === 'radio'){
     return (
 			<label>
-				<input type = {props.type} placeholder = {props.placeholder} value = {props.value} name = {props.name}/>
+        <input 
+        type = {props.type} 
+        placeholder = {props.placeholder} 
+        value = {props.value} 
+        name = {props.name}
+        onChange={props.onChange}
+        checked= {props.checked} 
+        />
 				{props.value} 
       </label>
     )
@@ -28,7 +29,9 @@ const Input = (props) => {
       <Inputs 
       type = {props.type}
       placeholder = {props.placeholder}
-      value = {props.value}
+      value={props.value}
+      onChange={props.onChange}
+      autoComplete={props.autoComplete}
       name = {props.name}
       >
       </Inputs>

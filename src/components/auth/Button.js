@@ -10,13 +10,15 @@ const Button = styled.button`
     border-radius: 30px;
     color: #FFF;  
     font-size: 18px;
-    font-family: 'Inter', sans-serif;
     margin: 38px 0 12px 0;
+    @media (min-width: 320px) and (max-width: 500px) {
+        margin: 16px 0 12px 0;
+    }
 `;
 
 function ButtonLogin(props) {
     return (
-    <Button type={props.type} >{props.text}</Button>
+    <Button type={props.type} onClick={props.onClick}>{props.text}</Button>
     );
 };
 

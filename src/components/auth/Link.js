@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Link = styled.a`
     font-size: 16px;
-    font-family: 'Inter', sans-serif;
     color:  #0AA7E2;
     text-align: center;
     margin: 16px 0 32px 0;
@@ -11,8 +10,8 @@ const Link = styled.a`
 
 function Redirection(props) {
     return (
-    <Link>{props.text}{props.link}</Link>
+        <Link>{props.text}{props.link}</Link>
     );
 };
 
-export default  Redirection;
+export default Redirection;
