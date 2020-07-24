@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const Error = styled.h2`
     font-size: 12px;
-    font-family: 'Inter', sans-serif;
     color: red;
     text-align: center;
 `;

@@ -1,35 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
 import Title from '../components/auth/Title.js';
 import Error from '../components/auth/Error.js';
 import Link from '../components/auth/Link.js';
 import Background from '../components/auth/Background.js';
-
-const Div = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-
-const Main = styled.main`
-  flex-grow: 1;
-  padding: 0% 10%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-`;
-
-const Forms = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
+import Container from '../components/auth/Container.js';
+import Main from '../components/auth/Main.js';
+import Forms from '../components/auth/Forms.js';
 
 const Login = () => {
   return (
-    <Div>
+    <Container>
       <Background />
       <Main>
         <Title text="Login" />
@@ -41,7 +23,7 @@ const Login = () => {
         <Button text="Login" />
         <Link text="Não possui cadastro? " link="Registre-se" />
       </Main>
-    </Div>
+    </Container>
   );
 };
 
