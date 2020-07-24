@@ -15,8 +15,11 @@ const Button = styled.button`
 `;
 
 function ButtonLogin(props) {
+    const submit = () => {
+        console.log("oieee")
+    }
     return (
-    <Button>{props.text}</Button>
+    <Button onClick={submit}>{props.text}</Button>
     );
 };
 
