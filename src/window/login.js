@@ -36,9 +36,9 @@ const Login = () => {
         <Forms>
           <Input type='email' placeholder='Email' />
           <Input type='password' placeholder='Senha' />
+          <Error />
+          <Button type='submit' text="Login" />
         </Forms>
-        <Error />
-        <Button text="Login" />
         <Link text="Não possui cadastro? " link="Registre-se" />
       </Main>
     </Div>

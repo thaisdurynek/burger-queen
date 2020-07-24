@@ -6,7 +6,7 @@ import Title from '../components/auth/Title.js';
 import Error from '../components/auth/Error.js';
 import Link from '../components/auth/Link.js';
 import Background from '../components/auth/Background.js';
-//import { injectGlobal } from 'styled-components';
+
 
 const Div = styled.section`
   display: flex;
@@ -56,9 +56,9 @@ const Register = () => {
 					</Radio>
 					<Input type='password' placeholder='Senha' />
 					<Input type='password' placeholder='Confirme sua senha' />
+          <Error />
+				  <Button type='submit' text="Registrar-se" />
 				</Forms>
-				<Error />
-				<Button text="Registrar-se" />
 				<Link text="Já possui cadastro? " link="Faça Login" />
 			</Main>
 		</Div>
