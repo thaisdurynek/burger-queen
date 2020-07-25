@@ -23,15 +23,22 @@ const Register = () => {
 
   const signUp = (event) => {
     event.preventDefault();
-    const userObj = {name: name, email: email, role: role};
-    console.log(userObj);
+    const userObj = {
+      name: name, 
+      email: email, 
+      role: role, 
+      password: password, 
+      passwordConfirm: passwordConfirm
+    };
+    //console.log(userObj);
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then( () => {
         if(role === ' Atendimento'){
-          history.push('/salao')
+          history.push('/Salao')
         } else {
-          history.push('/cozinha')
+          history.push('/Cozinha')
         }
+        firebase.firestore().collection('usuario').add(userObj);
       }
     )
     .catch(function(error) {
