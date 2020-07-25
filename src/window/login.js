@@ -19,7 +19,9 @@ const Login = () => {
   const signIn = (event) => {
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(alert('logooou!'))
+    .then(
+      user => console.log(user)
+    )
     .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
 import Title from '../components/auth/Title.js';
@@ -11,6 +11,7 @@ import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 import Radio from '../components/auth/ContainerForms.js';
 import firebase from '../firebaseConfig.js';
+//import authStage from '../FirebaseAuth.js';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -18,12 +19,21 @@ const Register = () => {
   const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const history = useHistory();
 
   const signUp = (event) => {
     event.preventDefault();
-    console.log(name, email, role, password, passwordConfirm)
+    const userObj = {name: name, email: email, role: role};
+    console.log(userObj);
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(alert('registrou!!'))
+    .then( () => {
+        if(role === ' Atendimento'){
+          history.push('/salao')
+        } else {
+          history.push('/cozinha')
+        }
+      }
+    )
     .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
