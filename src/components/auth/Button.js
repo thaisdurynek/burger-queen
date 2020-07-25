@@ -13,12 +13,12 @@ const Button = styled.button`
     margin: 38px 0 12px 0;
     @media (min-width: 320px) and (max-width: 500px) {
         margin: 16px 0 12px 0;
-    }
+    };
 `;
 
 function ButtonLogin(props) {
     return (
-    <Button>{props.text}</Button>
+        <Button>{props.text}</Button>
     );
 };
 

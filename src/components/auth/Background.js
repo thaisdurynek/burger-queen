@@ -14,15 +14,15 @@ const Logo = styled.div`
   justify-content: center;
   img {
     width: 82%;
-  }
+  };
   @media (min-width: 320px) and (max-width: 500px) {
     background-image: none;
     height: 50%;
     img {
       width: 146%;
       margin: 4px 0 0 0;
-    }
-   }
+    };
+   };
 `;
 
 const Background = () => {

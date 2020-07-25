@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
 import Title from '../components/auth/Title.js';
 import Error from '../components/auth/Error.js';
-import Link from '../components/auth/Link.js';
+import Redirection from '../components/auth/Link.js';
 import Background from '../components/auth/Background.js';
 import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
@@ -21,10 +22,12 @@ const Login = () => {
         </Forms>
         <Error />
         <Button text="Login" />
-        <Link text="Não possui cadastro? " link="Registre-se" />
+        <Redirection text="Funcionário novo? ">
+          <Link to="/Register">Cadastre-se</Link>
+        </Redirection>
       </Main>
     </Container>
   );
 };
 
-export default Login;
+export default withRouter(Login);

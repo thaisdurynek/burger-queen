@@ -9,9 +9,9 @@ const Link = styled.a`
 `;
 
 function Redirection(props) {
-    return (
-        <Link>{props.text}{props.link}</Link>
-    );
+  return (
+    <Link>{props.text}{props.children}</Link>
+  );
 };
 
 export default Redirection;
