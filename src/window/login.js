@@ -29,8 +29,8 @@ const Login = () => {
           <Error />
           <Button onClick={signIn} text="Login" />
         </Forms>
-        <Redirection text="Já possui cadastro? ">
-          <Link to="/Register">Faça Login</Link>
+        <Redirection text="Funcionário novo? ">
+          <Link to="/Register">Faça Cadastro</Link>
         </Redirection>
       </Main>
     </Container>
