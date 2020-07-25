@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
@@ -9,15 +9,26 @@ import Background from '../components/auth/Background.js';
 import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
+import firebase from '../firebaseConfig.js';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const signIn = (event) => {
     event.preventDefault();
-    console.log(email, password);
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(alert('logooou!'))
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+      // ...
+    });
   };
+
   return (
     <Container>
       <Background />

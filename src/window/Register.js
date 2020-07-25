@@ -10,18 +10,27 @@ import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 import Radio from '../components/auth/ContainerForms.js';
+import firebase from '../firebaseConfig.js';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [saloon, setSaloon] = useState('');
-  const [kitchen, setKitchen] = useState('');
+  const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const signUp = (event) => {
     event.preventDefault();
-    console.log(name, email, password, saloon, kitchen, passwordConfirm);
+    console.log(name, email, role, password, passwordConfirm)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(alert('registrou!!'))
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log( errorCode, errorMessage);
+      // ...
+    });
   }
 
   return (
@@ -35,8 +44,8 @@ const Register = () => {
           <Radio>
             <p>Cargo:</p>
             <div>
-              <Input onChange={(e) => setSaloon(e.target.value)} type='radio' value=' Atendimento' name='cargo' />
-              <Input onChange={(e) => setKitchen(e.target.value)} type='radio' value=' Cozinha' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Atendimento' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Cozinha' name='cargo' />
             </div>
           </Radio>
           <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />
