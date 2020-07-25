@@ -9,9 +9,10 @@ const Mains = styled.main`
   align-content: center;
 `;
 
-function Main (props) {
-    return (
-        <Mains>{props.children}</Mains>    );
+function Main(props) {
+  return (
+    <Mains>{props.children}</Mains>
+  );
 };
 
 export default Main;

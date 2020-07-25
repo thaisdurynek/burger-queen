@@ -10,7 +10,7 @@ const Inputs = styled.input`
 `;
 
 const Input = (props) => {
-  if(props.type === 'radio'){
+  if (props.type === 'radio') {
     return (
 			<label>
         <input 
@@ -18,12 +18,12 @@ const Input = (props) => {
         placeholder = {props.placeholder} 
         value = {props.value} 
         name = {props.name}
-        onChange={props.onChange}
+        onChange= {props.onChange}
         checked= {props.checked} 
         />
 				{props.value} 
       </label>
-    )
+    );
   } else {
     return (
       <Inputs 
@@ -35,8 +35,8 @@ const Input = (props) => {
       name = {props.name}
       >
       </Inputs>
-    )
-  }
-}
+    );
+  };
+};
 
 export default Input;

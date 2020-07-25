@@ -9,13 +9,13 @@ const Section = styled.section`
     display: flex;
     flex-direction: column;
     background-image:none;
-   }
+   };
 `;
 
 function Container(props) {
-    return (
-        <Section>{props.children}</Section>
-    );
+  return (
+    <Section>{props.children}</Section>
+  );
 };
 
 export default Container;

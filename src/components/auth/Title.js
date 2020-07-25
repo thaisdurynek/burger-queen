@@ -8,13 +8,13 @@ const Title = styled.h1`
     @media (min-width: 320px) and (max-width: 500px) {
         font-size: 28px;
         margin: 0 0 12px 0;
-    }
+    };
 `;
 
 function TitlePages(props) {
-    return (
-    <Title>{props.text}</Title>
-    );
+	return (
+		<Title>{props.text}</Title>
+	);
 };
 
 export default TitlePages;

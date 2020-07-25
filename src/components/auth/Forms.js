@@ -6,10 +6,10 @@ const Forms = styled.form`
   flex-direction: column;
 `;
 
-function Form (props) {
-    return (
-        <Forms>{props.children}</Forms>
-    );
+function Form(props) {
+  return (
+    <Forms>{props.children}</Forms>
+  );
 };
 
 export default Form;

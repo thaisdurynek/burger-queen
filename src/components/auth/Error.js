@@ -8,9 +8,9 @@ const Error = styled.h2`
 `;
 
 function ErrorMensage(props) {
-    return (
-        <Error>{props.err}</Error>
-    );
+  return (
+    <Error>{props.err}</Error>
+  );
 };
 
 export default ErrorMensage;

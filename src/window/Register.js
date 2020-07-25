@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
 import Title from '../components/auth/Title.js';
 import Error from '../components/auth/Error.js';
-import Link from '../components/auth/Link.js';
+import Redirection from '../components/auth/Link.js';
 import Background from '../components/auth/Background.js';
 import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
@@ -13,8 +14,8 @@ import Radio from '../components/auth/ContainerForms.js';
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [saloon, setSaloon] = useState(null);
-  const [kitchen, setKitchen] = useState(null);
+  const [saloon, setSaloon] = useState('');
+  const [kitchen, setKitchen] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
@@ -43,10 +44,12 @@ const Register = () => {
         </Forms>
         <Error />
         <Button onClick={signUp} text="Registrar-se" />
-        <Link text="Já possui cadastro? " link="Faça Login" />
+        <Redirection text="Já possui cadastro? ">
+          <Link to="/Login">Faça Login</Link>
+        </Redirection>
       </Main>
     </ Container>
   );
 };
 
-export default Register;
+export default withRouter(Register);
