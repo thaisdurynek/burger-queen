@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
 import Input from '../components/auth/Input.js';
 import Button from '../components/auth/Button.js';
 import Title from '../components/auth/Title.js';
@@ -10,20 +10,27 @@ import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 
+
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const signIn = (event) => {
+    event.preventDefault();
+    console.log(email, password);
+  };
   return (
     <Container>
       <Background />
       <Main>
         <Title text="Login" />
-        <Forms>
-          <Input type='email' placeholder='Email' />
-          <Input type='password' placeholder='Senha' />
+        <Forms onSubmit>
+          <Input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
+          <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />
+          <Error />
+          <Button onClick={signIn} text="Login" />
         </Forms>
-        <Error />
-        <Button text="Login" />
-        <Redirection text="Funcionário novo? ">
-          <Link to="/Register">Cadastre-se</Link>
+        <Redirection text="Já possui cadastro? ">
+          <Link to="/Register">Faça Login</Link>
         </Redirection>
       </Main>
     </Container>

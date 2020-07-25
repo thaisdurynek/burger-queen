@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Link = styled.a`
+const Link = styled.p`
     font-size: 16px;
     color:  #0AA7E2;
     text-align: center;

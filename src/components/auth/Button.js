@@ -17,9 +17,9 @@ const Button = styled.button`
 `;
 
 function ButtonLogin(props) {
-    return (
-        <Button>{props.text}</Button>
-    );
+  return (
+    <Button type={props.type} onClick={props.onClick}>{props.text}</Button>
+  );
 };
 
 export default ButtonLogin;
