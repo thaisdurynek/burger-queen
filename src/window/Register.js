@@ -10,20 +10,47 @@ import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 import Radio from '../components/auth/ContainerForms.js';
+import firebase from '../configs/firebaseConfig.js';
+import verification from '../configs/FirebaseAuth.js';
+import errorFirebase from '../configs/FirebaseErrors.js';
 
-const Register = () => {
+const Register = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [saloon, setSaloon] = useState(null);
-  const [kitchen, setKitchen] = useState(null);
+  const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [err, setErr] = useState('');
 
   const signUp = (event) => {
-    event.preventDefault();
-    console.log(name, email, password, saloon, kitchen, passwordConfirm);
+    if (role === "") {
+      setErr("Por favor, preencha seu cargo!")
+    } else {
+      event.preventDefault();
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          const user = firebase.auth().currentUser.uid;
+          firebase.firestore().collection('usuario').doc(user).set({
+            name: name,
+            email: email,
+            role: role,
+            password: password,
+            passwordConfirm: passwordConfirm
+          });
+        })
+        .then(() => {
+          verification(props);
+        }).catch(function (error) {
+          let err = error.code;
+          if (errorFirebase[err]) {
+            setErr(errorFirebase[err]);
+          } else {
+            setErr(err);
+          };
+        });
+    };
   };
-
+  
   return (
     <Container>
       <Background />
@@ -35,14 +62,14 @@ const Register = () => {
           <Radio>
             <p>Cargo:</p>
             <div>
-              <Input onChange={(e) => setSaloon(e.target.value)} type='radio' value=' Atendimento' name='cargo' />
-              <Input onChange={(e) => setKitchen(e.target.value)} type='radio' value=' Cozinha' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Atendimento' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Cozinha' name='cargo' />
             </div>
           </Radio>
           <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />
           <Input onChange={(e) => setPasswordConfirm(e.target.value)} type='password' placeholder='Confirme sua senha' />
         </Forms>
-        <Error />
+        {err.length ? <Error text={err} /> : null}
         <Button onClick={signUp} text="Registrar-se" />
         <Redirection text="Já possui cadastro? ">
           <Link to="/Login">Faça Login</Link>
