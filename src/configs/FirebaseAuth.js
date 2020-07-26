@@ -1,4 +1,4 @@
-import firebase from './firebaseConfig';
+import firebase from './FirebaseConfig';
 
 const verification = (props) => {
   firebase.auth().onAuthStateChanged((user) => {

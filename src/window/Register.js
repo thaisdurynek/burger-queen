@@ -10,7 +10,7 @@ import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 import Radio from '../components/auth/ContainerForms.js';
-import firebase from '../configs/firebaseConfig.js';
+import firebase from '../configs/FirebaseConfig.js';
 import verification from '../configs/FirebaseAuth.js';
 import errorFirebase from '../configs/FirebaseErrors.js';
 
@@ -23,8 +23,8 @@ const Register = (props) => {
   const [err, setErr] = useState('');
 
   const signUp = (event) => {
-    if (role === "") {
-      setErr("Por favor, preencha seu cargo!")
+    if (role === "" || password !== passwordConfirm) {
+      setErr("Por favor, preencha seu cargo ou verifique se suas senhas são iguais")
     } else {
       event.preventDefault();
       firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -50,7 +50,7 @@ const Register = (props) => {
         });
     };
   };
-  
+
   return (
     <Container>
       <Background />
