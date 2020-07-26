@@ -1,22 +1,21 @@
 import React from 'react';
-import image from './assets/background 01.jpg'
-import styled from 'styled-components';
+import Register from './window/Register.js';
+import Login from './window/Login.js';
+import Saloon from './window/Saloon.js';
+import Kitchen from './window/Kitchen.js';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  /* background-color:red; */
-  background-image: url("${image}");
-  background-size: contain;
-  background-repeat: no-repeat;
-
-`
 function App() {
   return (
-    <Container>
-      {/* <h1>TESTE</h1> */}
-    </Container>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" render={Login} />
+        <Route path="/Register" render={Register} />
+        <Route path="/Login" render={Login} />
+        <Route path="/Saloon" render={Saloon} />
+        <Route path="/Kitchen" render={Kitchen} />
+      </Switch>
+    </BrowserRouter>
   );
-}
-
+};
 export default App;
