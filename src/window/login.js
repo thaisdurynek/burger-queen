@@ -11,7 +11,6 @@ import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
 import firebase from '../configs/firebaseConfig.js';
 import verification from '../configs/FirebaseAuth.js';
-import errorFirebase from '../configs/FirebaseErrors.js';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -24,11 +23,7 @@ const Login = (props) => {
       .then(verification(props))
       .catch(function (error) {
         let err = error.message;
-        if (errorFirebase[err]) {
-          setErr(errorFirebase[err]);
-        } else {
-          setErr(err);
-        };
+        setErr(err);
       });
   };
 

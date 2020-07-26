@@ -1,5 +1,5 @@
 const errorsFirebase = {
-  'The email adress is badly formatted.': 'Por favor, preencha seus dados corretamente.',
+  'The email adress is badly formatted': 'Por favor, preencha seus dados corretamente.',
   'auth/weak-password': 'A senha deve conter 6 dígitos.',
   'auth/invalid-email': 'Email inválido',
   'auth/invalid-credential': 'Dados Inválidos.',
