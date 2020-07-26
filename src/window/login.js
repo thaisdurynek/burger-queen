@@ -9,8 +9,9 @@ import Background from '../components/auth/Background.js';
 import Container from '../components/auth/Container.js';
 import Main from '../components/auth/Main.js';
 import Forms from '../components/auth/Forms.js';
-import firebase from '../configs/firebaseConfig.js';
+import firebase from '../configs/FirebaseConfig.js';
 import verification from '../configs/FirebaseAuth.js';
+import errorFirebase from '../configs/FirebaseErrors.js';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -22,8 +23,12 @@ const Login = (props) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(verification(props))
       .catch(function (error) {
-        let err = error.message;
-        setErr(err);
+        let err = error.code;
+        if (errorFirebase[err]) {
+          setErr(errorFirebase[err]);
+        } else {
+          setErr(err);
+        };
       });
   };
 
