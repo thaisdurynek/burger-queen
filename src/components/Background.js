@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import image from '../../assets/background 01.jpg';
-import logo from '../../assets/logo.png';
+import image from '../assets/background 01.jpg';
+import logo from '../assets/logo.png';
 
 const Logo = styled.div`
   display: flex;
