@@ -6,7 +6,7 @@ import Title from '../components/Title.js';
 import Error from '../components/Error.js';
 import Redirection from '../components/Link.js';
 import Background from '../components/Background.js';
-import Container from '../components/Container.js';
+import Container from '../components/container/ContainerLogo.js';
 import Main from '../components/Main.js';
 import Forms from '../components/Forms.js';
 import firebase from '../configs/FirebaseConfig.js';
