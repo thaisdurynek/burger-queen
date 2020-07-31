@@ -6,11 +6,11 @@ const Button = styled.button`
   height: 100px;
   margin: 50px;
   padding: 10px;
-  border: 0.5px solid #F6F6F6;
+  border: 0.5px solid #0AA7E2;
   border-radius: 50px;
   background-color: #fff;
   &:hover{
-    background-color: #FF1B5F;
+    background-color: #0AA7E2;
     color: white;
   }
 `;

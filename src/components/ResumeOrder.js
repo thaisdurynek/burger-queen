@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Order = styled.div`
-	margin-bottom: 10px;
+  padding: 6px;
   background-color: #fff;
-  width: 40%;
-  align-items: center;
+  width: 100%;
 `;
 
 function ContainerOrder(props) {
