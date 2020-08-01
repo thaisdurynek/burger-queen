@@ -9,13 +9,14 @@ import ResumeOrder from '../components/ResumeOrder.js';
 import Menu from '../components/Menu.js';
 import Faixa from '../assets/faixa.png';
 import styled from 'styled-components';
+import SignOut from '../configs/FirebaseSignOut'
 
 const Img = styled.img`
   width: 86%;
   margin: 6px;
 `;
 
-const Kitchen = () => {
+const Kitchen = (props) => {
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
@@ -25,10 +26,18 @@ const Kitchen = () => {
     })
   }, [])
 
+  const logout = (event) => {
+    event.preventDefault();
+    SignOut(props);
+  }
+
   return (
     <Container direction="row" >
       <Container direction="column" width="70%" aling="center" background="#F5F5F5">
-        <Img src={Faixa} />
+        <Container direction='row' justify='space-around'>
+          <Img src={Faixa} />
+          <Button text='Sair' color='black' background='white' height='30%' onClick={logout}/>
+        </Container>
         <Container direction="row" justify="center" background="#F5F5F5">
           <Button text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
           <Button text="Menu Principal" color="black" background="white" height="80%" width="30%" font="22px" />
@@ -36,6 +45,7 @@ const Kitchen = () => {
         <Container direction="row" wrap="wrap" justify="center" background="#F5F5F5" padding="14px 0 0 0">
           {menu.map(elem => (
             <Menu
+            key={elem.item}
             img={elem.img}
             alt={elem.item} 
             title={elem.item} 
