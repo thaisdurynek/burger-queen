@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Input from '../components/Input.js';
 import Button from '../components/Button.js';
-import Title from '../components/Title.js';
+import Text from '../components/Text.js';
 import Error from '../components/Error.js';
 import Redirection from '../components/Link.js';
 import Background from '../components/Background.js';
-import Container from '../components/Container.js';
+import Container from '../components/container/ContainerLogo.js';
 import Main from '../components/Main.js';
 import Forms from '../components/Forms.js';
 import firebase from '../configs/FirebaseConfig.js';
@@ -36,7 +36,7 @@ const Login = (props) => {
     <Container>
       <Background />
       <Main>
-        <Title text="Login" />
+        <Text text="Login"  size="52px"/>
         <Forms onSubmit>
           <Input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
           <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />

@@ -5,7 +5,7 @@ const Error = styled.h2`
     font-size: 14px;
     color: red;
     text-align: center;
-    margin: 10px 0 0 0;
+    margin-top: 10px;
 `;
 
 function ErrorMensage(props) {

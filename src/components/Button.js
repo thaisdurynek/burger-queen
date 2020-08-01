@@ -2,23 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
-    width: 100%;
-    padding: 10px;
-    height: 52px;
-    background-color: #0AA7E2;
-    border: 2px solid  #0AA7E2;
-    border-radius: 30px;
-    color: #FFF;  
-    font-size: 18px;
-    margin: 38px 0 12px 0;
-    @media (min-width: 320px) and (max-width: 500px) {
-        margin: 16px 0 12px 0;
-    };
+  padding: ${props => props.padding || "10px"};
+  width: ${props => props.width || "auto"};
+  height: ${props => props.height || "auto"};
+  background-color: ${props => props.background || "#0AA7E2"};
+  border: 2px solid  #0AA7E2;
+  border-radius: 30px;
+  color: ${props => props.color || "#FFF"};  
+  font-size: ${props => props.font || "18px"};
+  margin:12px;
+  @media (min-width: 320px) and (max-width: 500px) {
+    margin: 16px 0 12px 0;
+  };
 `;
 
 function ButtonLogin(props) {
   return (
-    <Button type={props.type} onClick={props.onClick}>{props.text}</Button>
+    <Button 
+    type={props.type} 
+    onClick={props.onClick}
+    padding={props.padding}
+    width={props.width}
+    height={props.height}
+    background={props.background}
+    color={props.color}
+    font={props.font}
+    >{props.text}</Button>
   );
 };
 

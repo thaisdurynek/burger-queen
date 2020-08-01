@@ -1,6 +1,6 @@
 import React from 'react';
 import Register from './window/Register.js';
-import Login from './window/Login.js';
+import Login from './window/login.js';
 import Saloon from './window/Saloon.js';
 import Kitchen from './window/Kitchen.js';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
