@@ -24,7 +24,8 @@ const Kitchen = () => {
         <MenuContainer>
           {menu.map(elem => (
             <Menu
-            img={elem.img} 
+            img={elem.img}
+            alt={elem.item} 
             title={elem.item} 
             price={`${elem.price} R$`}
              />
