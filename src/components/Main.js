@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Mains = styled.main`
   flex-grow: 1;
-  padding: 0% 10%;
+  padding: 0 10%;
   display: flex;
   flex-direction: column;
   align-content: center;

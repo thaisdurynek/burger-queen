@@ -2,15 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Cards = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
   width: 140px;
   height: auto;
   padding: 15px;
   margin: 8px;
-  border-radius: 5px;
+  border: 2px solid  #0AA7E2;
+  border-radius: 16px;
   background-color: #fff;
   img {
     margin: 5px;

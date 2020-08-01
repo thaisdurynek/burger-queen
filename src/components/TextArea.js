@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Identificacion = styled.textarea`
-  /* heigth: ${props => props.width} */
   width: ${props => props.width || "30px"};
-	/* margin-bottom: 10px; */
-  border: 2px solid gray;
+	border: 2px solid gray;
   border-radius:10px;
   font-size: 18px;
 `;

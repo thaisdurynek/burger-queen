@@ -6,9 +6,12 @@ const Container = styled.div`
   flex-direction: ${props => props.direction || "row"};
   flex-wrap: ${props => props.wrap || "none"};;
   justify-content: ${props => props.justify || "none"};
-  padding: ${props => props.padding || "none"};
+  padding: ${props => props.padding || "0"};
   align-items: ${props => props.align || "none"};
-  background-color: ${props => props.color || "#fff"};
+  background-color: ${props => props.background || "#fff"};
+  width: ${props => props.width || "auto"};
+  height: ${props => props.height || "auto"};
+  flex-grow: ${props => props.grow || "none"};
 `;
 
 const MenuContainer = (props) => {
@@ -19,7 +22,10 @@ const MenuContainer = (props) => {
       wrap={props.wrap}
       padding={props.padding}
       align={props.align}
-      color={props.color}
+      background={props.background}
+      width={props.width}
+      height={props.height}
+      grow={props.grow}
     >{props.children}</Container>
   );
 };

@@ -2,7 +2,7 @@ import { Link, withRouter } from 'react-router-dom';
 import React, { useState } from 'react';
 import Input from '../components/Input.js';
 import Button from '../components/Button.js';
-import Title from '../components/Title.js';
+import Text from '../components/Text.js';
 import Error from '../components/Error.js';
 import Redirection from '../components/Link.js';
 import Background from '../components/Background.js';
@@ -55,7 +55,7 @@ const Register = (props) => {
     <Container>
       <Background />
       <Main>
-        <Title text="Registro" />
+        <Text text="Registro"  size="52px"/>
         <Forms>
           <Input onChange={(e) => setName(e.target.value)} type='text' placeholder='Nome' />
           <Input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
