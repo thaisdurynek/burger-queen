@@ -20,7 +20,7 @@ const Cards = styled.div`
 
 const Menu = (props) => {
   return (
-  <Cards onChange={props.onChange}>
+  <Cards onClick={props.onClick}>
     <figure>
       <img src={props.img} alt={props.alt}></img>
     </figure>
