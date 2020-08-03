@@ -6,12 +6,15 @@ const Text = styled.p`
   font-size: ${props => props.size};
   padding: 6px;
   text-align: center;
-  margin: 0 0 38px 0;
+  margin: ${props => props.margin || "0 0 32px 0"};
 `;
 
 function TextDefault(props) {
   return (
-    <Text size={props.size}>{props.text}</Text>
+    <Text 
+    size={props.size}
+    margin={props.margin}
+    >{props.text}</Text>
   );
 };
 

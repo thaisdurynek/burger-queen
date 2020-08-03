@@ -9,9 +9,10 @@ import ResumeOrder from '../components/ResumeOrder.js';
 import Menu from '../components/Menu.js';
 import Faixa from '../assets/faixa.png';
 import styled from 'styled-components';
+import Item from '../components/OrderItem.js';
 
 const Img = styled.img`
-  width: 86%;
+  width: 90%;
   margin: 6px;
 `;
 
@@ -21,14 +22,17 @@ const Kitchen = () => {
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
+      
       setMenu(newMenu)
     })
   }, [])
 
   return (
     <Container direction="row" >
-      <Container direction="column" width="70%" aling="center" background="#F5F5F5">
-        <Img src={Faixa} />
+      <Container direction="column" width="70%">
+        <Container justify="center" background="#F5F5F5">
+          <Img src={Faixa} />
+        </Container>
         <Container direction="row" justify="center" background="#F5F5F5">
           <Button text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
           <Button text="Menu Principal" color="black" background="white" height="80%" width="30%" font="22px" />
@@ -47,14 +51,25 @@ const Kitchen = () => {
         <ResumeOrder>
           <Container direction="row" justify="center">
             <Text size="28px" text="Mesa:" />
-            <Note width="30%" />
+            <Note />
           </Container>
           <Container direction="row" justify="center">
-            <Text size="20px" text="Resumo do Pedido" />
+            <Text size="20px" text="Resumo do Pedido" margin="2px" />
+          </Container>
+          <Container direction="column" align="center">
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
           </Container>
           <Container direction="column" justify="flex-end" align="center">
             <Note width="80%" placeholder="Observações" />
-            <Button text="Concluir Pedido" height="30%" width="80%" />
+            <Button text="Concluir Pedido" width="80%" height="40%" />
           </Container>
         </ResumeOrder>
       </Container>
