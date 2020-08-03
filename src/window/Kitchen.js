@@ -12,31 +12,41 @@ import styled from 'styled-components';
 import SignOut from '../configs/FirebaseSignOut'
 
 const Img = styled.img`
-  width: 86%;
-  margin: 6px;
+  width: 30%;
+  margin: 30px;
 `;
 
 const Kitchen = (props) => {
   const [menu, setMenu] = useState([]);
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [])
+  }, [menu])
 
   const logout = (event) => {
     event.preventDefault();
     SignOut(props);
   }
 
+  const clickMenuItem = (e, price, item) => {
+    e.preventDefault();
+    setOrder([...order, { price, item}]);
+  }
+
+  useEffect(() => {
+    console.log(order);
+  }, [order])
+
   return (
     <Container direction="row" >
       <Container direction="column" width="70%" aling="center" background="#F5F5F5">
         <Container direction='row' justify='space-around'>
           <Img src={Faixa} />
-          <Button text='Sair' color='black' background='white' height='30%' onClick={logout}/>
+          <Button text='Sair' color='black' background='white' height='50%' onClick={logout}/>
         </Container>
         <Container direction="row" justify="center" background="#F5F5F5">
           <Button text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
@@ -50,6 +60,7 @@ const Kitchen = (props) => {
             alt={elem.item} 
             title={elem.item} 
             price={`${elem.price} R$`}
+            onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
              />
           ))}
         </Container>
@@ -65,6 +76,9 @@ const Kitchen = (props) => {
           </Container>
           <Container direction="column" justify="flex-end" align="center">
             <Note width="80%" placeholder="Observações" />
+            {order.map((i) => (
+              <Text key={i.item} text={`item: ${i.item}, preço: ${i.price} R$`} />
+            ))}
             <Button text="Concluir Pedido" height="30%" width="80%" />
           </Container>
         </ResumeOrder>
