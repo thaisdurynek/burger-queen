@@ -10,6 +10,7 @@ import Menu from '../components/Menu.js';
 import Faixa from '../assets/faixa.png';
 import styled from 'styled-components';
 import SignOut from '../configs/FirebaseSignOut'
+import Item from '../components/OrderItem.js';
 
 const Img = styled.img`
   width: 30%;
@@ -23,6 +24,7 @@ const Kitchen = (props) => {
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
+      
       setMenu(newMenu)
     })
   }, [menu])
@@ -42,8 +44,8 @@ const Kitchen = (props) => {
 
   return (
     <Container direction="row" >
-      <Container direction="column" width="70%" aling="center" background="#F5F5F5">
-        <Container direction='row' justify='space-around'>
+      <Container direction="column" width="70%">
+        <Container justify="center" background="#F5F5F5">
           <Img src={Faixa} />
           <Button text='Sair' color='black' background='white' height='50%' onClick={logout}/>
         </Container>
@@ -68,17 +70,28 @@ const Kitchen = (props) => {
         <ResumeOrder>
           <Container direction="row" justify="center">
             <Text size="28px" text="Mesa:" />
-            <Note width="30%" />
+            <Note />
           </Container>
           <Container direction="row" justify="center">
-            <Text size="20px" text="Resumo do Pedido" />
+            <Text size="20px" text="Resumo do Pedido" margin="2px" />
+          </Container>
+          <Container direction="column" align="center">
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
           </Container>
           <Container direction="column" justify="flex-end" align="center">
             <Note width="80%" placeholder="Observações" />
             {order.map((i, index) => (
               <Text key={index} text={`item: ${i.item}, preço: ${i.price} R$`} />
             ))}
-            <Button text="Concluir Pedido" height="30%" width="80%" />
+            <Button text="Concluir Pedido" width="80%" height="40%" />
           </Container>
         </ResumeOrder>
       </Container>
