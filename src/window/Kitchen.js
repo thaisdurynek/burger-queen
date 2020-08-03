@@ -38,7 +38,6 @@ const Kitchen = (props) => {
   }
 
   useEffect(() => {
-    console.log(order);
   }, [order])
 
   return (
@@ -76,8 +75,8 @@ const Kitchen = (props) => {
           </Container>
           <Container direction="column" justify="flex-end" align="center">
             <Note width="80%" placeholder="Observações" />
-            {order.map((i) => (
-              <Text key={i.item} text={`item: ${i.item}, preço: ${i.price} R$`} />
+            {order.map((i, index) => (
+              <Text key={index} text={`item: ${i.item}, preço: ${i.price} R$`} />
             ))}
             <Button text="Concluir Pedido" height="30%" width="80%" />
           </Container>
