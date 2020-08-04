@@ -20,11 +20,11 @@ const Img = styled.img`
 const Kitchen = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
+  const [typeOrder, setTypeOrder] = useState("lanch");
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
-      
       setMenu(newMenu)
     })
   }, [menu])
@@ -36,33 +36,54 @@ const Kitchen = (props) => {
 
   const clickMenuItem = (e, price, item) => {
     e.preventDefault();
-    setOrder([...order, { price, item}]);
+    setOrder([...order, { price, item }]);
   }
 
   useEffect(() => {
-  }, [order])
+  }, [order]);
+
+  const filterBreakfeast = menu.filter((breakfeast) => {
+    return breakfeast.type === "Café da Manhã";
+  });
+  const filterLanch = menu.filter((lanch) => {
+    return lanch.type === "Menu Principal";
+  });
+
+  const filterMenu = (e, type) => {
+    e.preventDefault();
+    setTypeOrder(type);
+  };
 
   return (
     <Container direction="row" >
       <Container direction="column" width="70%" aling="center" background="#F5F5F5">
         <Container direction='row' justify='space-around'>
           <Img src={Faixa} />
-          <Button text='Sair' color='black' background='white' height='50%' onClick={logout}/>
+          <Button text='Sair' color='black' background='white' height='50%' onClick={logout} />
         </Container>
         <Container direction="row" justify="center" background="#F5F5F5">
-          <Button text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
-          <Button text="Menu Principal" color="black" background="white" height="80%" width="30%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "breakfeast")} text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "lanch")} text="Menu Principal" color="black" background="white" height="80%" width="30%" font="22px" />
         </Container>
         <Container direction="row" wrap="wrap" justify="center" background="#F5F5F5" padding="14px 0 0 0">
-          {menu.map(elem => (
+          {typeOrder === "breakfeast" ? filterBreakfeast.map(elem => (
             <Menu
-            key={elem.item}
-            img={elem.img}
-            alt={elem.item} 
-            title={elem.item} 
-            price={`${elem.price} R$`}
-            onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
-             />
+              key={elem.item}
+              img={elem.img}
+              alt={elem.item}
+              title={elem.item}
+              price={`${elem.price} R$`}
+              onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
+            />
+          )) : filterLanch.map(elem => (
+            <Menu
+              key={elem.item}
+              img={elem.img}
+              alt={elem.item}
+              title={elem.item}
+              price={`${elem.price} R$`}
+              onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
+            />
           ))}
         </Container>
       </Container>
@@ -76,21 +97,21 @@ const Kitchen = (props) => {
             <Text size="20px" text="Resumo do Pedido" margin="2px" />
           </Container>
           <Container direction="column" align="center">
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
-          </Container>
-          <Container direction="column" justify="flex-end" align="center">
-            <Note width="80%" placeholder="Observações" />
             {order.map((i, index) => (
               <Text key={index} text={`item: ${i.item}, preço: ${i.price} R$`} />
             ))}
+            {/* <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} />
+            <Item
+              title={`Titulo`}
+              price={`Preço`} /> */}
+          </Container>
+          <Container direction="column" justify="flex-end" align="center">
+            <Note width="80%" placeholder="Observações" />
             <Button text="Concluir Pedido" height="30%" width="80%" />
           </Container>
         </ResumeOrder>
