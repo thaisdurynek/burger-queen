@@ -7,9 +7,9 @@ const Cards = styled.div`
   height: auto;
   padding: 15px;
   margin: 8px;
-  border: 2px solid  #0AA7E2;
   border-radius: 16px;
   background-color: #fff;
+  box-shadow: 6px 6px 14px -2px rgba(0,0,0,0.75);
   img {
     margin: 5px;
     width:80px;
@@ -20,13 +20,13 @@ const Cards = styled.div`
 
 const Menu = (props) => {
   return (
-  <Cards onClick={props.onClick}>
-    <figure>
-      <img src={props.img} alt={props.alt}></img>
-    </figure>
-    <h4>{props.title}</h4>
-    <p>{props.price}</p>
-  </Cards>
+    <Cards onClick={props.onClick}>
+      <figure>
+        <img src={props.img} alt={props.alt}></img>
+      </figure>
+      <h4>{props.title}</h4>
+      <p>{props.price}</p>
+    </Cards>
   );
 };
 
