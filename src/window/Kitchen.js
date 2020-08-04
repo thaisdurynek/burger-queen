@@ -49,6 +49,10 @@ const Kitchen = (props) => {
     order.splice(key, 1);
   }
   
+  const total = (arr) => {
+    const sum = arr.reduce((init, item) => init + item.price, 0);
+    return sum;
+  }
 
   return (
     <Container direction="row" >
@@ -68,7 +72,7 @@ const Kitchen = (props) => {
             img={elem.img}
             alt={elem.item} 
             title={elem.item} 
-            price={`${elem.price} R$`}
+            price={`R$ ${elem.price}`}
             onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
              />
           ))}
@@ -97,7 +101,7 @@ const Kitchen = (props) => {
             {order.map((i, index) => (
               <Item key={index} 
               title={i.item} 
-              price={`${i.price} R$`}
+              price={`R$ ${i.price}`}
               onClick={(event) => deleteItem(event, index)}
               />
             ))}
@@ -107,6 +111,7 @@ const Kitchen = (props) => {
             width="80%" 
             placeholder="Observações"
             />
+            <Text size="20px" text={`Total R$ ${total(order)}`} margin="2px" />
             <Button onClick={sendOrder} text="Concluir Pedido" width="80%" height="40%" />
           </Container>
         </ResumeOrder>
