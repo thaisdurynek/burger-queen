@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Identificacion = styled.textarea`
+const Identification = styled.textarea`
   width: ${props => props.width || "30%"};
   height: ${props => props.height || "30%"};
 	border: 2px solid gray;
@@ -12,9 +12,12 @@ const Identificacion = styled.textarea`
 
 function IdentificationTable(props) {
   return (
-    <Identificacion 
+    <Identification 
     width={props.width}
-    placeholder={props.placeholder}/>
+    height={props.height}
+    placeholder={props.placeholder}
+    onChange={props.onChange}
+    />
   );
 };
 

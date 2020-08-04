@@ -13,7 +13,6 @@ function TextDefault(props) {
   return (
     <Text size={props.size} 
     margin={props.margin} 
-    onChange={props.onChange}
     >{props.text}</Text>
   );
 };

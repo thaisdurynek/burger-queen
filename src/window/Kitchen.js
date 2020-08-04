@@ -20,14 +20,14 @@ const Img = styled.img`
 const Kitchen = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
+  const [finalOrder, setFinalOrder] = useState({})
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
-      const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
-      
+      const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() })) 
       setMenu(newMenu)
     })
-  }, [menu])
+  }, [menu, order, finalOrder])
 
   const logout = (event) => {
     event.preventDefault();
@@ -39,8 +39,16 @@ const Kitchen = (props) => {
     setOrder([...order, { price, item}]);
   }
 
-  useEffect(() => {
-  }, [order])
+  const sendOrder = (e) => {
+    e.preventDefault();
+    console.log(finalOrder, order)
+  }
+
+  const deleteItem = (e, key) => {
+    e.preventDefault();
+    order.splice(key, 1);
+  }
+  
 
   return (
     <Container direction="row" >
@@ -69,29 +77,37 @@ const Kitchen = (props) => {
       <Container direction="column" height="100%">
         <ResumeOrder>
           <Container direction="row" justify="center">
-            <Text size="28px" text="Mesa:" />
-            <Note />
+            <Text size="20px" text="Mesa:" />
+            <Note onChange={(e) => setFinalOrder({...finalOrder, table: e.target.value})}
+            width='30%' 
+            height='10%' 
+            />
+          </Container>
+          <Container direction="row" justify="center">
+            <Text size="20px" text="Nome:" />
+            <Note onChange={(e) => setFinalOrder({...finalOrder, name: e.target.value})} 
+            width='30%' 
+            height='10%' 
+            />
           </Container>
           <Container direction="row" justify="center">
             <Text size="20px" text="Resumo do Pedido" margin="2px" />
           </Container>
           <Container direction="column" align="center">
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
-            <Item
-              title={`Titulo`}
-              price={`Preço`} />
+            {order.map((i, index) => (
+              <Item key={index} 
+              title={i.item} 
+              price={`${i.price} R$`}
+              onClick={(event) => deleteItem(event, index)}
+              />
+            ))}
           </Container>
           <Container direction="column" justify="flex-end" align="center">
-            <Note width="80%" placeholder="Observações" />
-            {order.map((i, index) => (
-              <Text key={index} text={`item: ${i.item}, preço: ${i.price} R$`} />
-            ))}
-            <Button text="Concluir Pedido" width="80%" height="40%" />
+            <Note onChange={(e) => setFinalOrder({...finalOrder, obs: e.target.value})}
+            width="80%" 
+            placeholder="Observações"
+            />
+            <Button onClick={sendOrder} text="Concluir Pedido" width="80%" height="40%" />
           </Container>
         </ResumeOrder>
       </Container>
