@@ -7,10 +7,12 @@ const Container = styled.div`
   flex-wrap: ${props => props.wrap || "none"};;
   justify-content: ${props => props.justify || "none"};
   padding: ${props => props.padding || "0"};
+  margin: ${props => props.margin || "none"};
   align-items: ${props => props.align || "none"};
   background-color: ${props => props.color || "none"};
   background-image: url(${props => props.background || "none"});
-  background-size: contain;
+  overflow-y: ${props => props.overflow || "none"};
+  background-size: cover;
   width: ${props => props.width || "auto"};
   height: ${props => props.height || "auto"};
   flex-grow: ${props => props.grow || "none"};
@@ -23,9 +25,11 @@ const MenuContainer = (props) => {
       justify={props.justify}
       wrap={props.wrap}
       padding={props.padding}
+      margin={props.margin}
       align={props.align}
       color={props.color}
       background={props.background}
+      overflow={props.overflow}
       width={props.width}
       height={props.height}
       grow={props.grow}

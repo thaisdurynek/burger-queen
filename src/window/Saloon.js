@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
+import styled from 'styled-components';
 import Container from '../components/container/ContainerMenu.js';
 import Note from '../components/TextArea.js';
 import Text from '../components/Text.js';
@@ -9,18 +10,18 @@ import ResumeOrder from '../components/ResumeOrder.js';
 import Menu from '../components/Menu.js';
 import Faixa from '../assets/faixa.png';
 import Background from '../assets/background02.png';
-import styled from 'styled-components';
-// import Item from '../components/OrderItem.js';
-import SignOut from '../configs/FirebaseSignOut'
+import Item from '../components/OrderItem.js';
+import SignOut from '../configs/FirebaseSignOut';
 
 const Img = styled.img`
-  width: 74%;
-  margin: 6px;
+  width: 80%;
+  margin: 26px 0;
 `;
 
 const Saloon = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
+  const [finalOrder, setFinalOrder] = useState({})
   const [typeOrder, setTypeOrder] = useState("lanch");
 
   useEffect(() => {
@@ -40,8 +41,20 @@ const Saloon = (props) => {
     setOrder([...order, { price, item }]);
   }
 
-  useEffect(() => {
-  }, [order]);
+  const sendOrder = (e) => {
+    e.preventDefault();
+    console.log(finalOrder, order)
+  }
+
+  const deleteItem = (e, key) => {
+    e.preventDefault();
+    order.splice(key, 1);
+  }
+
+  const total = (arr) => {
+    const sum = arr.reduce((init, item) => init + item.price, 0);
+    return sum;
+  }
 
   const filterBreakfeast = menu.filter((breakfeast) => {
     return breakfeast.type === "Café da Manhã";
@@ -56,16 +69,16 @@ const Saloon = (props) => {
   };
 
   return (
-    <Container direction="row" >
-      <Container direction="column" width="70%" aling="center" background={Background}>
+    <Container direction="row" height="100vh">
+      <Container direction="column" width="70%" aling="center" background={Background} >
         <Container direction='row' justify='space-around' >
           <Img src={Faixa} />
         </Container>
         <Container direction="row" justify="center" >
-          <Button onClick={(e) => filterMenu(e, "breakfeast")} text="Café da Manhã" color="black" background="white" height="80%" width="30%" font="22px" />
-          <Button onClick={(e) => filterMenu(e, "lanch")} text="Menu Principal" color="black" background="white" height="80%" width="30%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "breakfeast")} text="Café da Manhã" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "lanch")} text="Menu Principal" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
         </Container>
-        <Container direction="row" wrap="wrap" justify="center" padding="14px 0 0 0">
+        <Container direction="row" wrap="wrap" justify="center" padding="14px 0 0 0" margin="28px 0">
           {typeOrder === "breakfeast" ? filterBreakfeast.map(elem => (
             <Menu
               key={elem.item}
@@ -81,30 +94,54 @@ const Saloon = (props) => {
               img={elem.img}
               alt={elem.item}
               title={elem.item}
-              price={`${elem.price} R$`}
+              price={`R$ ${elem.price}`}
               onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
             />
           ))}
         </Container>
       </Container>
-      <Container direction="column" height="100%">
+      <Container direction="column" height="100%" width="36%" >
         <ResumeOrder>
-          <Container direction="row" justify="center">
-            <Text size="28px" text="Mesa:" />
-            <Note />
-            <Button text='Sair' color='black' background='white' height='50%' onClick={logout} />
+          <Container width="100%" justify="flex-end">
+            <Button text='Sair' color='white' background='#0AA7E2' width="24%" height="76%" margin="0" onClick={logout} />
+          </Container>
+          <Container direction="column" margin="4% 0 8% 0">
+            <Container direction="row" justify="flex-start" width="100% " margin="10px 0 0 0">
+              <Text size="26px" margin="4px" text="Mesa:" />
+              <Note onChange={(e) => setFinalOrder({ ...finalOrder, table: e.target.value })}
+                width='40%'
+                height='36px'
+              />
+            </Container>
+            <Container direction="row" justify="flex-start">
+              <Text size="26px" margin="4px" text="Nome:" />
+              <Note onChange={(e) => setFinalOrder({ ...finalOrder, name: e.target.value })}
+                width="40%"
+                height="36px"
+              />
+            </Container>
           </Container>
           <Container direction="row" justify="center">
-            <Text size="20px" text="Resumo do Pedido" margin="2px" />
+            <Text size="28px" text="Resumo do Pedido" margin="0" />
           </Container>
-          <Container direction="column" align="center">
+          <Container direction="column" align="center" overflow="scroll" height="242px" width="95%" margin="10px 0 40px 0">
+            <hr width="90%" />
             {order.map((i, index) => (
-              <Text key={index} text={`item: ${i.item}, preço: ${i.price} R$`} />
+              <Item key={index}
+                title={i.item}
+                price={`R$ ${i.price}`}
+                onClick={(event) => deleteItem(event, index)} />
             ))}
           </Container>
           <Container direction="column" justify="flex-end" align="center">
-            <Note width="80%" placeholder="Observações" />
-            <Button text="Concluir Pedido" height="30%" width="80%" />
+            <hr width="90%" />
+            <Note onChange={(e) => setFinalOrder({ ...finalOrder, obs: e.target.value })}
+              margin="18px 0 0 0"
+              width="88%"
+              height="66px"
+              placeholder="Observações"
+            />
+            <Button onClick={sendOrder} text={`Concluir R$ ${total(order)}`} width="88%" height="52px" margin="18px 0" />
           </Container>
         </ResumeOrder>
       </Container>
@@ -120,4 +157,3 @@ export default withRouter(Saloon);
 
 
 
-  

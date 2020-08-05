@@ -7,6 +7,7 @@ const Mains = styled.main`
   display: flex;
   flex-direction: column;
   align-content: center;
+  width: 40%;
 `;
 
 function Main(props) {

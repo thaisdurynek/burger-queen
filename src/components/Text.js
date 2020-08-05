@@ -11,7 +11,12 @@ const Text = styled.p`
 
 function TextDefault(props) {
   return (
-    <Text size={props.size} onChange={props.onChange}>{props.text}</Text>
+    <Text
+      size={props.size}
+      onChange={props.onChange}
+      margin={props.margin}
+    >{props.text}</Text>
+
   );
 };
 
