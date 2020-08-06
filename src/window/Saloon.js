@@ -13,6 +13,7 @@ import Faixa from '../assets/faixa.png';
 import Background from '../assets/background02.png';
 import Item from '../components/OrderItem.js';
 import SignOut from '../configs/FirebaseSignOut';
+import Modal from '../components/Modal';
 
 const Img = styled.img`
   width: 80%;
@@ -25,6 +26,7 @@ const Saloon = (props) => {
   const [finalOrder, setFinalOrder] = useState({});
   const [typeOrder, setTypeOrder] = useState("lunch");
   const [alert, setAlert] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
@@ -45,6 +47,9 @@ const Saloon = (props) => {
 
   const clickMenuItem = (e, price, item) => {
     e.preventDefault();
+    if(item.slice(0, 10) === 'Hamburguer'){
+      setModalIsOpen(true)
+    }
     setOrder([...order, { price, item }]);
   }
 
@@ -129,6 +134,7 @@ const Saloon = (props) => {
             />
           ))}
         </Container>
+        {modalIsOpen ? (<Modal/>) : null}
       </Container>
       <Container direction="column" height="100%" width="36%" >
         <ResumeOrder>
