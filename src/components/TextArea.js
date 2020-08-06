@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Identification = styled.input`
+const Identification = styled.textarea`
   width: ${props => props.width || "30%"};
   height: ${props => props.height || "30%"};
 	border: 2px solid gray;

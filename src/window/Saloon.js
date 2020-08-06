@@ -62,16 +62,15 @@ const Saloon = (props) => {
         table: finalOrder.table,
         name: finalOrder.name,
         order: order,
-        observation: finalOrder.obs,
+        observation: finalOrder.obs ? finalOrder.obs : '',
         price: total(order),
         stats: "Encaminhado para a cozinha",
         worker: user,
         date: new Date(),
       })
         .then(() => {
-          // setFinalOrder([]);
-          // setOrder([]);
-          setAlert("Pedido enviado para a cozinha!")
+          setOrder([]);
+          setAlert("Pedido enviado para a cozinha!");
         });
     };
   };
