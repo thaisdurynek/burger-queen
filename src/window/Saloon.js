@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
 import styled from 'styled-components';
 import Container from '../components/container/ContainerMenu.js';
+import Alert from '../components/Alert.js';
 import Note from '../components/TextArea.js';
 import Text from '../components/Text.js';
 import Button from '../components/Button.js';
@@ -21,8 +22,9 @@ const Img = styled.img`
 const Saloon = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
-  const [finalOrder, setFinalOrder] = useState({})
+  const [finalOrder, setFinalOrder] = useState({});
   const [typeOrder, setTypeOrder] = useState("lanch");
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
@@ -30,6 +32,11 @@ const Saloon = (props) => {
       setMenu(newMenu)
     })
   }, [menu])
+
+  useEffect(() => {
+    const timer = setTimeout(() => { setAlert('') }, 4000);
+    return () => clearTimeout(timer);
+  }, [alert])
 
   const logout = (event) => {
     event.preventDefault();
@@ -43,8 +50,32 @@ const Saloon = (props) => {
 
   const sendOrder = (e) => {
     e.preventDefault();
-    console.log(finalOrder, order)
-  }
+    const nameOrder = finalOrder.name;
+    const tableOrder = finalOrder.table;
+    if (nameOrder === undefined || tableOrder === undefined) {
+      setAlert("Preencha o nº da mesa e o nome do cliente!")
+    } else if (order.length === 0) {
+      setAlert("Sua comanda esta vazia. Adicione itens!")
+    } else {
+      const user = firebase.auth().currentUser.email;
+      firebase.firestore().collection('Orders').doc().set({
+        table: finalOrder.table,
+        name: finalOrder.name,
+        order: order,
+        observation: finalOrder.obs,
+        price: total(order),
+        stats: "Encaminhado para a cozinha",
+        worker: user,
+        date: new Date(),
+      })
+        .then(() => {
+          // setFinalOrder([]);
+          // setOrder([]);
+          setAlert("Pedido enviado para a cozinha!")
+        });
+    };
+  };
+
 
   const deleteItem = (e, key) => {
     e.preventDefault();
@@ -111,6 +142,7 @@ const Saloon = (props) => {
               <Note onChange={(e) => setFinalOrder({ ...finalOrder, table: e.target.value })}
                 width='40%'
                 height='36px'
+                required
               />
             </Container>
             <Container direction="row" justify="flex-start">
@@ -118,13 +150,14 @@ const Saloon = (props) => {
               <Note onChange={(e) => setFinalOrder({ ...finalOrder, name: e.target.value })}
                 width="40%"
                 height="36px"
+                required
               />
             </Container>
           </Container>
           <Container direction="row" justify="center">
             <Text size="28px" text="Resumo do Pedido" margin="0" />
           </Container>
-          <Container direction="column" align="center" overflow="scroll" height="242px" width="95%" margin="10px 0 40px 0">
+          <Container direction="column" align="center" overflow="scroll" height="242px" width="95%" margin="10px 0 24px 0">
             <hr width="90%" />
             {order.map((i, index) => (
               <Item key={index}
@@ -141,6 +174,7 @@ const Saloon = (props) => {
               height="66px"
               placeholder="Observações"
             />
+            {alert.length ? <Alert text={alert} /> : null}
             <Button onClick={sendOrder} text={`Concluir R$ ${total(order)}`} width="88%" height="52px" margin="18px 0" />
           </Container>
         </ResumeOrder>
