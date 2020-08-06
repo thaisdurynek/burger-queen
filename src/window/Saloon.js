@@ -29,7 +29,7 @@ const Saloon = (props) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [menu])
+  }, [menu, order, finalOrder])
 
   const logout = (event) => {
     event.preventDefault();
@@ -38,6 +38,9 @@ const Saloon = (props) => {
 
   const clickMenuItem = (e, price, item) => {
     e.preventDefault();
+    // if(item.slice(0, 9) === 'Hamburguer'){
+    //   modal()
+    // }
     setOrder([...order, { price, item }]);
   }
 
