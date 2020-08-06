@@ -12,12 +12,12 @@ const Identification = styled.textarea`
 
 function IdentificationTable(props) {
   return (
-    <Identification 
-    width={props.width}
-    height={props.height}
-    placeholder={props.placeholder}
-    margin={props.margin}
-    onChange={props.onChange}
+    <Identification
+      width={props.width}
+      height={props.height}
+      placeholder={props.placeholder}
+      margin={props.margin}
+      onChange={props.onChange}
     />
   );
 };

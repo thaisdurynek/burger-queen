@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Input from '../components/Input.js';
 import Button from '../components/Button.js';
 import Text from '../components/Text.js';
-import Error from '../components/Error.js';
+import Error from '../components/Alert.js';
 import Redirection from '../components/Link.js';
 import Background from '../components/Background.js';
 import Container from '../components/container/ContainerLogo.js';
