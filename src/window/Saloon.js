@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
 import styled from 'styled-components';
 import Container from '../components/container/ContainerMenu.js';
-import Alert from '../components/Alert.js';
+import Err from '../components/Alert.js';
 import Note from '../components/TextArea.js';
 import Text from '../components/Text.js';
 import Button from '../components/Button.js';
@@ -25,6 +25,7 @@ const Saloon = (props) => {
   const [finalOrder, setFinalOrder] = useState({});
   const [typeOrder, setTypeOrder] = useState("lunch");
   const [alert, setAlert] = useState('');
+  const [err, setErr] = useState('');
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
@@ -36,7 +37,7 @@ const Saloon = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => { setAlert('') }, 4000);
     return () => clearTimeout(timer);
-  }, [alert])
+  }, [alert, err]);
 
   const logout = (event) => {
     event.preventDefault();
@@ -53,9 +54,9 @@ const Saloon = (props) => {
     const nameOrder = finalOrder.name;
     const tableOrder = finalOrder.table;
     if (nameOrder === undefined || tableOrder === undefined) {
-      setAlert("Preencha o nº da mesa e o nome do cliente!")
+      setErr("Preencha o nº da mesa e o nome do cliente!")
     } else if (order.length === 0) {
-      setAlert("Sua comanda esta vazia. Adicione itens!")
+      setErr("Sua comanda esta vazia. Adicione itens!")
     } else {
       const user = firebase.auth().currentUser.email;
       firebase.firestore().collection('Orders').doc().set({
@@ -74,7 +75,6 @@ const Saloon = (props) => {
         });
     };
   };
-
 
   const deleteItem = (e, key) => {
     e.preventDefault();
@@ -173,7 +173,8 @@ const Saloon = (props) => {
               height="66px"
               placeholder="Observações"
             />
-            {alert.length ? <Alert text={alert} /> : null}
+            {alert.length ? <Text margin="8px 0 0 0" size="18px" text={alert} /> : null}
+            {err.length ? <Err text={err} /> : null}
             <Button onClick={sendOrder} text={`Concluir R$ ${total(order)}`} width="88%" height="52px" margin="18px 0" />
           </Container>
         </ResumeOrder>
