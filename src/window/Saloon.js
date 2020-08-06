@@ -23,7 +23,7 @@ const Saloon = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
   const [finalOrder, setFinalOrder] = useState({});
-  const [typeOrder, setTypeOrder] = useState("lanch");
+  const [typeOrder, setTypeOrder] = useState("lunch");
   const [alert, setAlert] = useState('');
 
   useEffect(() => {
@@ -45,9 +45,6 @@ const Saloon = (props) => {
 
   const clickMenuItem = (e, price, item) => {
     e.preventDefault();
-    // if(item.slice(0, 9) === 'Hamburguer'){
-    //   modal()
-    // }
     setOrder([...order, { price, item }]);
   }
 
@@ -89,11 +86,11 @@ const Saloon = (props) => {
     return sum;
   }
 
-  const filterBreakfeast = menu.filter((breakfeast) => {
-    return breakfeast.type === "Café da Manhã";
+  const filterBreakfast = menu.filter((breakfast) => {
+    return breakfast.type === "Café da Manhã";
   });
-  const filterLanch = menu.filter((lanch) => {
-    return lanch.type === "Menu Principal";
+  const filterLunch = menu.filter((lunch) => {
+    return lunch.type === "Menu Principal";
   });
 
   const filterMenu = (e, type) => {
@@ -108,11 +105,11 @@ const Saloon = (props) => {
           <Img src={Faixa} />
         </Container>
         <Container direction="row" justify="center" >
-          <Button onClick={(e) => filterMenu(e, "breakfeast")} text="Café da Manhã" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
-          <Button onClick={(e) => filterMenu(e, "lanch")} text="Menu Principal" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "breakfast")} text="Café da Manhã" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
+          <Button onClick={(e) => filterMenu(e, "lunch")} text="Menu Principal" color="white" background="#0AA7E2" height="86%" width="34%" font="22px" />
         </Container>
         <Container direction="row" wrap="wrap" justify="center" padding="14px 0 0 0" margin="28px 0">
-          {typeOrder === "breakfeast" ? filterBreakfeast.map(elem => (
+          {typeOrder === "breakfast" ? filterBreakfast.map(elem => (
             <Menu
               key={elem.item}
               img={elem.img}
@@ -121,7 +118,7 @@ const Saloon = (props) => {
               price={`${elem.price} R$`}
               onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
             />
-          )) : filterLanch.map(elem => (
+          )) : filterLunch.map(elem => (
             <Menu
               key={elem.item}
               img={elem.img}
