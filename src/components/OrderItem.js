@@ -7,7 +7,7 @@ const Item = styled.div`
   display: flex;
   justify-content: row;
   width: 80%;
-  height: 50px;
+  height: auto;
   padding: 4px;
   margin: 12px;
 `;
@@ -21,6 +21,8 @@ const OrderItem = (props) => {
     <Item>
       <Container direction="column" justify="flex-start" width="70%">
         <h4>{props.title}</h4>
+        <h5>{props.info}</h5>
+        <h5>{props.extra}</h5>
         <p>{props.price}</p>
       </Container>
       <Container justify="flex-end" width="100%">

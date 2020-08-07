@@ -27,13 +27,16 @@ const Saloon = (props) => {
   const [typeOrder, setTypeOrder] = useState("lunch");
   const [alert, setAlert] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [burger, setBurger] = useState({});
+  const [burgerInfo, setBurgerInfo] = useState('');
+  const [extra, setExtra] = useState('')
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [menu, order, finalOrder])
+  }, [menu, order, finalOrder, burgerInfo, burger, extra])
 
   useEffect(() => {
     const timer = setTimeout(() => { setAlert('') }, 4000);
@@ -49,8 +52,27 @@ const Saloon = (props) => {
     e.preventDefault();
     if(item.slice(0, 10) === 'Hamburguer'){
       setModalIsOpen(true)
+      setBurger({price, item})
+    } else{
+      setOrder([...order, { price, item }]);
     }
-    setOrder([...order, { price, item }]);
+  }
+
+  const burgerOrder = (e) => {
+    e.preventDefault();
+    let price = burger.price;
+    if(extra !== '') {
+      price = burger.price + 1;
+    }
+    setOrder([...order, { 
+      price: price, 
+      item: burger.item, 
+      info: `Info: ${burgerInfo}`,
+      extra: `Extra: ${extra}`
+    }]);
+    setModalIsOpen(false);
+    setBurgerInfo('');
+    setExtra('');
   }
 
   const sendOrder = (e) => {
@@ -134,7 +156,15 @@ const Saloon = (props) => {
             />
           ))}
         </Container>
-        {modalIsOpen ? (<Modal/>) : null}
+        {modalIsOpen ? 
+        (
+        <Modal 
+        onClose={() => setModalIsOpen(false)} 
+        onChangeBurger={(e) => setBurgerInfo(e.target.value)}
+        onChangeExtra={(e) => setExtra(e.target.value)}
+        onClick={burgerOrder}
+        />
+        ) : null}
       </Container>
       <Container direction="column" height="100%" width="36%" >
         <ResumeOrder>
@@ -168,6 +198,8 @@ const Saloon = (props) => {
               <Item key={index}
                 title={i.item}
                 price={`R$ ${i.price}`}
+                info={i.info}
+                extra={i.extra}
                 onClick={(event) => deleteItem(event, index)} />
             ))}
           </Container>
