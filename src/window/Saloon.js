@@ -39,6 +39,18 @@ const Saloon = (props) => {
     return () => clearTimeout(timer);
   }, [alert, err]);
 
+  // const finalOrderRef = useRef()
+  // const value = finalOrderRef.current
+  // console.log("VALUE =>", value)
+  // useEffect(() => {
+  //   const value = setFinalOrder(() => {
+  //     console.log(value)
+  //   })
+  //   finalOrderRef.current = value;
+  //   console.log(finalOrderRef.current)
+  // })
+  // const handleCancel = () => clearFinalOrder(finalOrderRef.current)
+
   const logout = (event) => {
     event.preventDefault();
     SignOut(props);
@@ -141,7 +153,6 @@ const Saloon = (props) => {
               <Note onChange={(e) => setFinalOrder({ ...finalOrder, table: e.target.value })}
                 width='40%'
                 height='36px'
-                required
               />
             </Container>
             <Container direction="row" justify="flex-start">
@@ -149,7 +160,6 @@ const Saloon = (props) => {
               <Note onChange={(e) => setFinalOrder({ ...finalOrder, name: e.target.value })}
                 width="40%"
                 height="36px"
-                required
               />
             </Container>
           </Container>
