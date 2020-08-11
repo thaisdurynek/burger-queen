@@ -11,6 +11,7 @@ const Button = styled.button`
   color: ${props => props.color || "#FFF"};  
   font-size: ${props => props.font || "18px"};
   margin:${props => props.margin || "12px"};
+  outline: none;
   &:hover {
     background-color: #1E7B9E;
     color: white;
