@@ -18,6 +18,18 @@ const Container = styled.div`
   width: ${props => props.width || "auto"};
   height: ${props => props.height || "auto"};
   flex-grow: ${props => props.grow || "none"};
+
+  @media (min-width: 320px) and (max-width: 500px){
+    flex-direction: ${props => props.mediaDirection || "column"};
+    justify-content: ${props => props.mediaJustify || "none"};
+    align-content: ${props => props.mediaAlign || "none"};
+    width: ${props => props.mediaWidth || "auto"};
+    height: ${props => props.mediaHeight || "auto"};
+    margin: ${props => props.mediaMargin || "1%"};
+  }
+  @media (min-width: 1200px) and (max-width: 1500px){
+    margin: ${props => props.maxMargin || "0"};
+  }
 `;
 
 const MenuContainer = (props) => {
@@ -37,6 +49,13 @@ const MenuContainer = (props) => {
       width={props.width}
       height={props.height}
       grow={props.grow}
+      mediaDirection={props.mediaDirection}
+      mediaJustify={props.mediaJustify}
+      mediaAlign={props.mediaAlign}
+      mediaMargin={props.mediaMargin}
+      mediaWidth={props.mediaWidth}
+      mediaHeight={props.mediaHeight}
+      maxMargin={props.maxMargin}
     >{props.children}</Container>
   );
 };
