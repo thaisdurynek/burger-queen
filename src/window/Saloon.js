@@ -13,6 +13,9 @@ import Item from '../components/OrderItem.js';
 import SignOut from '../configs/FirebaseSignOut';
 import Modal from '../components/Modal';
 import Header from '../components/container/Header';
+import BellNotNotified from '../assets/bell.png';
+import BellNotified from '../assets/bell-notification.png';
+import Notification from '../components/Notification';
 
 const Saloon = (props) => {
   const [menu, setMenu] = useState([]);
@@ -25,6 +28,9 @@ const Saloon = (props) => {
   const [burgerInfo, setBurgerInfo] = useState('');
   const [extra, setExtra] = useState('')
   const [err, setErr] = useState('');
+  const [bell, setBell] = useState(BellNotified)
+  const [window, setWindow] = useState(false);
+  const [readyOrders, setReadyOrders] = useState([]);
 
   useEffect(() => {
     firebase.firestore().collection('Menu').onSnapshot((snapshot) => {
@@ -34,9 +40,36 @@ const Saloon = (props) => {
   }, [menu, order, finalOrder, burgerInfo, burger, extra])
 
   useEffect(() => {
+    firebase.firestore().collection('Orders').get().then((snapshot) => {
+      const orders = snapshot.docs.map((doc) => {
+        if (doc.data().stats === 'Encaminhado para o salão') {
+          return ({
+            id: doc.id,
+            ...doc.data()
+          })
+        } else {
+          return false
+        }
+      })
+      setReadyOrders(orders.filter(order => order !== false))
+    })
+  }, [])
+
+
+  useEffect(() => {
     const timer = setTimeout(() => { setAlert('') }, 4000);
     return () => clearTimeout(timer);
   }, [alert, err]);
+
+  const changeBell = () => {
+    if (bell === BellNotified) {
+      setBell(BellNotNotified);
+      setWindow(true);
+    } else {
+      setBell(BellNotified)
+      setWindow(false);
+    }
+  }
 
   const logout = (event) => {
     event.preventDefault();
@@ -97,6 +130,16 @@ const Saloon = (props) => {
     };
   };
 
+  const delivered = (event, id) => {
+    event.preventDefault();
+    setReadyOrders(readyOrders.filter(order => order.id !== id))
+    return firebase.firestore().collection('Orders').doc(id).update({
+      stats: 'Pedido Entregue!',
+      leadTime: new Date().toLocaleString('pt-BR'),
+      hall_time: new Date().getTime()
+    });
+  }
+
   const deleteItem = (e, key) => {
     e.preventDefault();
     order.splice(key, 1);
@@ -121,7 +164,23 @@ const Saloon = (props) => {
 
   return (
       <Container direction='column' height="100vh">
-        <Header onClick={logout}/>
+        <Header onClick={logout} bell={bell} onClickBell={changeBell} />
+        {window ? 
+        (<Container
+          direction='column'
+          position='absolute' 
+          zindex='20'
+          overflow="scroll" 
+          color='white' 
+          margin='8% 0 0 0'
+          padding='3%'
+          shadow='2px 2px 7px 1px rgba(0,0,0,0.2)'
+          radius='5%'
+          right='1%' 
+          width='34%' 
+          height='50%'>
+            {readyOrders.map((elem) => (<Notification key={elem.id} table={elem.table} name={elem.name} onClick={(e) => delivered(e, elem.id)}/>))}
+          </Container>): null}
         <Container direction='row' height='100%' mediaMargin='0'>
           <Container direction="column" 
             width="70%" height='100%' 
