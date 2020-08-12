@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
+// import Banner from '../components/KitchenOrders.js';
 
 const Kitchen = () => {
 
-  const filtro = firebase.firestore().collection('Orders').where("stats", "==", "Encaminhado para a cozinha").get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        const acessOrder = doc.data().order;
-        const mesa = doc.data().table
-        const order = acessOrder[0];
-        const iten = order.item;
-        const extra = order.extra;
-        const info = order.info;
+  const [item, setItem] = useState({});
 
-        if (extra !== undefined || info !== undefined) {
-          console.log("EXTRA =>", extra, "INFO =>", info, "MESA =>", mesa)
-        } else {
-          console.log("MESA =>", mesa, "ITEM =>", iten)
-        }
+  useEffect(() => {
+    firebase.firestore().collection('Orders').where("stats", "==", "Encaminhado para a cozinha").get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const acessOrder = doc.data().order;
+          // const mesa = doc.data().table;
+          // const name = doc.data().name;
+          // const worker = doc.data().worker;
+
+          for (const element of acessOrder) {
+            const item = element.item;
+            const extra = element.extra;
+            const info = element.info;
+            if (extra !== undefined || info !== undefined) {
+              setItem({ item, extra, info });
+            } else {
+              setItem({ item });
+            };
+          };
+        });
       });
-    })
+  }, []);
 
   return (
     <>
-      <h4>Hello</h4>
+      {/* {item.map(() => (
+        <Banner
+          item={item} />
+      ))} */}
     </>
   );
 };
