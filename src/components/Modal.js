@@ -18,8 +18,8 @@ const Background = styled.div`
 `;
 
 const Close = styled.button`
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background-color: black;
   color: white;
   position: absolute;
@@ -51,6 +51,7 @@ const Modal = (props) => {
             <Container direction='row' justify='space-evenly'>
               <Input onChange={props.onChangeExtra} type='radio' value=' Ovo' name='extra'/>
               <Input onChange={props.onChangeExtra} type='radio' value=' Queijo' name='extra'/>
+              <Input onChange={props.onChangeExtra} type='radio' value=' Nenhum' name='extra'/>
             </Container>
             <Button onClick={props.onClick} text='Enviar' />
           </Container>

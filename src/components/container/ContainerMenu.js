@@ -18,6 +18,9 @@ const Container = styled.div`
   width: ${props => props.width || "auto"};
   height: ${props => props.height || "auto"};
   flex-grow: ${props => props.grow || "none"};
+  z-index: ${props => props.zindex || "0"};
+  right: ${props => props.right || 'none'};
+  box-shadow: ${props => props.shadow || 'none'};
 
   @media (min-width: 320px) and (max-width: 500px){
     flex-direction: ${props => props.mediaDirection || "column"};
@@ -56,6 +59,9 @@ const MenuContainer = (props) => {
       mediaWidth={props.mediaWidth}
       mediaHeight={props.mediaHeight}
       maxMargin={props.maxMargin}
+      zindex={props.zindex}
+      right={props.right}
+      shadow={props.shadow}
     >{props.children}</Container>
   );
 };
