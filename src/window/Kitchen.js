@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
+import SignOut from '../configs/FirebaseSignOut';
 import Container from '../components/container/ContainerMenu.js';
+import Button from '../components/Button.js';
 
-const Kitchen = () => {
+const Kitchen = (props) => {
 
   const [order, setOrder] = useState([]);
-  // const [info, setInfo] = useState([]);
 
   useEffect(() => {
     async function fireCall() {
@@ -19,42 +20,53 @@ const Kitchen = () => {
     fireCall();
   }, []);
 
-  const resumeOrder = () => {
+  const resumeOrder = (order) => {
     let orderInfo = [];
-    for (let element of order) {
-      const name = element.name;
-      const table = element.table;
-      const worker = element.worker;
-      const obs = element.observation;
-      orderInfo.push(<Container direction="column">
-        <h4>{table}</h4>
-        <h4>{name}</h4>
-        {obs ? <p>Observações: {obs}</p> : null}
-        <h4>{worker}</h4>
-      </Container>);
 
-      const resume = element.order;
-      for (let itens of resume) {
-        const orders = itens.item;
-        const extra = itens.extra;
-        const info = itens.info;
-        orderInfo.push(<Container direction="column">
+    for (let itens in order) {
+      const orders = order[itens].item;
+      const extra = order[itens].extra;
+      const info = order[itens].info;
+
+      orderInfo.push(
+        <Container direction="column">
           <h3>{orders}</h3>
           {info ? <p>Tipo de Hamburger: {info}</p> : null}
           {extra ? <p>Adicionais: {extra}</p> : null}
-        </Container>);
-      };
-      return (<Container justify="column">
-        {orderInfo}
-      </Container>);
+        </Container>
+      );
     };
+    return orderInfo;
   };
+
+  const logout = (event) => {
+    event.preventDefault();
+    SignOut(props);
+  }
 
   return (
     <Container direction="column">
-      <Container direction="column">
-        {resumeOrder()}
+      <Container justify="space-around">
+        <Link to="/Historic">Histórico</Link>
+        <Button onClick={logout} text="Sair" width="14%" height="46px" />
       </Container>
+      <Container direction="column">
+        {order.map((request) => (
+          <Container justify="space-around" color="gray" margin="20px 0">
+            <Container direction="column">
+              {resumeOrder(request.order)}
+              {request.observation ? <p>Observações: {request.observation}</p> : null}
+            </Container>
+            <Container direction="column">
+              <h4>{request.table}</h4>
+              <h4>{request.name}</h4>
+              <h4>{request.worker}</h4>
+              <Button text="Concluir Pedido" />
+            </Container>
+          </Container>
+        ))}
+      </Container>
+
     </Container>
   );
 };
