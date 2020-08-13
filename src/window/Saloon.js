@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import firebase from '../configs/FirebaseConfig.js';
 import Container from '../components/container/ContainerMenu.js';
 import Err from '../components/Alert.js';
-import Note from '../components/TextArea.js';
+import Note from '../components/InputInfo.js';
 import Text from '../components/Text.js';
 import Button from '../components/Button.js';
 import ResumeOrder from '../components/ResumeOrder.js';
@@ -20,7 +20,7 @@ import Notification from '../components/Notification';
 const Saloon = (props) => {
   const [menu, setMenu] = useState([]);
   const [order, setOrder] = useState([]);
-  const [finalOrder, setFinalOrder] = useState({});
+  const [finalOrder, setFinalOrder] = useState({ table: "", name: "" });
   const [typeOrder, setTypeOrder] = useState("lunch");
   const [alert, setAlert] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -77,10 +77,10 @@ const Saloon = (props) => {
 
   const clickMenuItem = (e, price, item) => {
     e.preventDefault();
-    if(item.slice(0, 10) === 'Hamburguer'){
+    if (item.slice(0, 10) === 'Hamburguer') {
       setModalIsOpen(true)
-      setBurger({price, item})
-    } else{
+      setBurger({ price, item })
+    } else {
       setOrder([...order, { price, item }]);
     }
   }
@@ -88,14 +88,14 @@ const Saloon = (props) => {
   const burgerOrder = (e) => {
     e.preventDefault();
     let price = burger.price;
-    if(extra !== ' Nenhum') {
+    if (extra !== ' Nenhum') {
       price = burger.price + 1;
     }
-    setOrder([...order, { 
-      price: price, 
-      item: burger.item, 
-      info: `Info: ${burgerInfo}`,
-      extra: `Extra: ${extra}`
+    setOrder([...order, {
+      price: price,
+      item: burger.item,
+      info: burgerInfo,
+      extra: extra,
     }]);
     setModalIsOpen(false);
     setBurgerInfo('');
@@ -106,6 +106,7 @@ const Saloon = (props) => {
     e.preventDefault();
     const nameOrder = finalOrder.name;
     const tableOrder = finalOrder.table;
+
     if (nameOrder === undefined || tableOrder === undefined) {
       setErr("Preencha o nº da mesa e o nome do cliente!")
     } else if (order.length === 0) {
@@ -113,6 +114,7 @@ const Saloon = (props) => {
     } else {
       const user = firebase.auth().currentUser.email;
       firebase.firestore().collection('Orders').doc().set({
+      
         table: finalOrder.table,
         name: finalOrder.name,
         order: order,
@@ -123,6 +125,7 @@ const Saloon = (props) => {
         date: new Date(),
       })
         .then(() => {
+          setFinalOrder({ table: "", name: "", obs: "" });
           setOrder([]);
           setAlert("Pedido enviado para a cozinha!");
         });
@@ -163,23 +166,23 @@ const Saloon = (props) => {
   };
 
   return (
-      <Container direction='column' height="100vh">
-        <Header onClick={logout} bell={bell} onClickBell={changeBell} />
-        {window ? 
+    <Container direction='column' height="100vh">
+      <Header onClick={logout} bell={bell} onClickBell={changeBell} />
+      {window ?
         (<Container
           direction='column'
-          position='absolute' 
+          position='absolute'
           zindex='20'
-          overflow="scroll" 
-          color='white' 
+          overflow="scroll"
+          color='white'
           margin='8% 0 0 0'
           mediaMargin='25% 0 0 0'
           maxMargin='6% 0 0 0'
           padding='3%'
           shadow='2px 2px 7px 1px rgba(0,0,0,0.2)'
           radius='5%'
-          right='1%' 
-          width='34%' 
+          right='1%'
+          width='34%'
           height='50%'>
             {readyOrders.map((elem, index) => (<Notification key={elem.id} table={elem.table} name={elem.name} order={elem.order.map(i => (`${i.item}, `))} onClick={(e) => delivered(e, elem.id, index)}/>))}
           </Container>): null}
@@ -250,77 +253,80 @@ const Saloon = (props) => {
                 onClick={burgerOrder}
               />
             ) : null}
-          </Container>
-          <Container direction="column" height="auto" width="36%" margin='8% 0 0 0' mediaAlign='center'>
-            <ResumeOrder>
-              <Container direction="column" margin="15% 0 8% 0" maxMargin='30% 0 0 0' mediaMargin='10% 0 5% 0'>
-                <Container 
-                  direction="row" 
-                  justify="flex-start" 
-                  width="100% " 
-                  margin="0" 
-                  mediaDirection='row' 
-                  mediaJustify='center'>
-                  <Text size="20px" margin="4px 4px 4px 6px" text="Mesa:" />
-                  <Note 
-                    onChange={(e) => setFinalOrder({ ...finalOrder, table: e.target.value })}
-                    width='40%'
-                    height='32px'
-                    required
-                  />
-                </Container>
-                <Container direction="row" justify="flex-start" mediaDirection='row' mediaJustify='center'>
-                  <Text size="20px" margin="4px" text="Nome:" />
-                  <Note 
-                    onChange={(e) => setFinalOrder({ ...finalOrder, name: e.target.value })}
-                    width="40%"
-                    height="32px"
-                    required
-                  />
-                </Container>
-              </Container>
-              <Container direction="row" justify="center">
-                <Text size="24px" text="Resumo do Pedido" margin="0" />
-              </Container>
-              <Container 
-                direction="column" 
-                align="center" 
-                overflow="scroll" 
-                height="185px" 
-                width="95%" 
-                margin="10px 0 24px 0" 
-                mediaHeight='100px'>
-                <hr width="90%" />
-                {order.map((i, index) => (
-                  <Item key={index}
-                    title={i.item}
-                    price={`R$ ${i.price}`}
-                    info={i.info}
-                    extra={i.extra}
-                    onClick={(event) => deleteItem(event, index)} />
-                ))}
-              </Container>
-              <Container direction="column" justify="flex-end" align="center">
-                <hr width="90%" />
-                <Note 
-                  onChange={(e) => setFinalOrder({ ...finalOrder, obs: e.target.value })}
-                  margin="20px 0 0 0"
-                  width="88%"
-                  height="60px"
-                  mediaHeight='50px'
-                  placeholder="Observações"
-                />
-                {alert.length ? <Text margin="8px 0 0 0" size="18px" text={alert} /> : null}
-                {err.length ? <Err text={err} /> : null}
-                <Button 
-                  onClick={sendOrder} 
-                  text={`Concluir R$ ${total(order)}`} 
-                  width="88%" height="52px" 
-                  margin="18px 0" />
-              </Container>
-            </ResumeOrder>
-          </Container>
         </Container>
+        <Container direction="column" height="auto" width="36%" margin='8% 0 0 0' mediaAlign='center'>
+          <ResumeOrder>
+            <Container direction="column" margin="15% 0 8% 0" maxMargin='30% 0 0 0' mediaMargin='10% 0 5% 0'>
+              <Container
+                direction="row"
+                justify="flex-start"
+                width="100% "
+                margin="0"
+                mediaDirection='row'
+                mediaJustify='center'>
+                <Text size="20px" margin="4px 4px 4px 6px" text="Mesa:" />
+                <Note
+                  onChange={(e) => setFinalOrder({ ...finalOrder, table: e.target.value })}
+                  value={finalOrder.table}
+                  width='40%'
+                  height='32px'
+                  required
+                />
+              </Container>
+              <Container direction="row" justify="flex-start" mediaDirection='row' mediaJustify='center'>
+                <Text size="20px" margin="4px" text="Nome:" />
+                <Note
+                  onChange={(e) => setFinalOrder({ ...finalOrder, name: e.target.value })}
+                  value={finalOrder.name}
+                  width="40%"
+                  height="32px"
+                  required
+                />
+              </Container>
+            </Container>
+            <Container direction="row" justify="center">
+              <Text size="24px" text="Resumo do Pedido" margin="0" />
+            </Container>
+            <Container
+              direction="column"
+              align="center"
+              overflow="scroll"
+              height="185px"
+              width="95%"
+              margin="10px 0 24px 0"
+              mediaHeight='100px'>
+              <hr width="90%" />
+              {order.map((i, index) => (
+                <Item key={index}
+                  title={i.item}
+                  price={`R$ ${i.price}`}
+                  info={i.info}
+                  extra={i.extra}
+                  onClick={(event) => deleteItem(event, index)} />
+              ))}
+            </Container>
+            <Container direction="column" justify="flex-end" align="center">
+              <hr width="90%" />
+              <Note
+                onChange={(e) => setFinalOrder({ ...finalOrder, obs: e.target.value })}
+                value={finalOrder.obs}
+                margin="20px 0 0 0"
+                width="88%"
+                height="60px"
+                mediaHeight='50px'
+                placeholder="Observações"
+              />
+              {alert.length ? <Text margin="8px 0 0 0" size="18px" text={alert} /> : null}
+              {err.length ? <Err text={err} /> : null}
+              <Button
+                onClick={sendOrder}
+                text={`Concluir R$ ${total(order)}`}
+                width="88%" height="52px"
+                margin="18px 0" />
+            </Container>
+          </ResumeOrder>
+        </Container>
+      </Container>
     </Container>
   );
 };
