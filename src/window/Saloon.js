@@ -37,12 +37,12 @@ const Saloon = (props) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [menu, order, finalOrder, burgerInfo, burger, extra])
+  }, [order, finalOrder, burgerInfo, burger, extra]);
 
   useEffect(() => {
     firebase.firestore().collection('Orders').get().then((snapshot) => {
       const orders = snapshot.docs.map((doc) => {
-        if (doc.data().stats === 'Encaminhado para o salão') {
+        if (doc.data().status === 'Encaminhado para o salão') {
           return ({
             id: doc.id,
             ...doc.data()
@@ -51,13 +51,12 @@ const Saloon = (props) => {
           return false
         }
       })
-      setReadyOrders(orders.filter(order => order !== false))
+      setReadyOrders(orders.filter(elem => elem !== false))
     })
-  }, [])
-
+  }, [bell])
 
   useEffect(() => {
-    const timer = setTimeout(() => { setAlert('') }, 4000);
+    const timer = setTimeout(() => { setAlert('') }, 2000);
     return () => clearTimeout(timer);
   }, [alert, err]);
 
@@ -133,19 +132,19 @@ const Saloon = (props) => {
     };
   };
 
-  const delivered = (event, id) => {
+  const delivered = (event, id, key) => {
     event.preventDefault();
-    setReadyOrders(readyOrders.filter(order => order.id !== id))
+    readyOrders.splice(key, 1);
+    setReadyOrders([...readyOrders]);
     return firebase.firestore().collection('Orders').doc(id).update({
-      stats: 'Pedido Entregue!',
-      leadTime: new Date().toLocaleString('pt-BR'),
-      hall_time: new Date().getTime()
-    });
+      status: 'Pedido concluído!'
+    })
   }
 
   const deleteItem = (e, key) => {
     e.preventDefault();
     order.splice(key, 1);
+    setOrder([...order]);
   }
 
   const total = (arr) => {
@@ -176,81 +175,83 @@ const Saloon = (props) => {
           overflow="scroll"
           color='white'
           margin='8% 0 0 0'
+          mediaMargin='25% 0 0 0'
+          maxMargin='6% 0 0 0'
           padding='3%'
           shadow='2px 2px 7px 1px rgba(0,0,0,0.2)'
           radius='5%'
           right='1%'
           width='34%'
           height='50%'>
-          {readyOrders.map((elem) => (<Notification key={elem.id} table={elem.table} name={elem.name} onClick={(e) => delivered(e, elem.id)} />))}
-        </Container>) : null}
-      <Container direction='row' height='100%' mediaMargin='0'>
-        <Container direction="column"
-          width="70%" height='100%'
-          aling="center"
-          background={Background}
-          mediaWidth='100%'
-          mediaMargin='0'>
-          <Container
-            direction="row"
-            justify="center"
-            margin='24% 0 0 0'
-            mediaMargin='30% 0 0 0'
-            maxMargin='20% 0 0 0'
-            mediaDirection='row'
-            mediaJustify='space-evenly'>
-            <Button
-              onClick={(e) => filterMenu(e, "breakfast")}
-              text="Café da Manhã"
-              color="white"
-              background="#0AA7E2"
-              height="86%"
-              width="34%"
-              font="22px" />
-            <Button
-              onClick={(e) => filterMenu(e, "lunch")}
-              text="Menu Principal"
-              color="white"
-              background="#0AA7E2"
-              height="86%"
-              width="34%"
-              font="22px" />
-          </Container>
-          <Container
-            direction="row"
-            wrap="wrap"
-            justify="center"
-            padding="14px 0 0 0"
-            margin="28px 0"
-            mediaDirection='row'>
-            {typeOrder === "breakfast" ? filterBreakfast.map(elem => (
-              <Menu
-                key={elem.item}
-                img={elem.img}
-                alt={elem.item}
-                title={elem.item}
-                price={`${elem.price} R$`}
-                onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
+            {readyOrders.map((elem, index) => (<Notification key={elem.id} table={elem.table} name={elem.name} order={elem.order.map(i => (`${i.item}, `))} onClick={(e) => delivered(e, elem.id, index)}/>))}
+          </Container>): null}
+        <Container direction='row' height='100%' mediaMargin='0'>
+          <Container direction="column" 
+            width="70%" height='100%' 
+            aling="center" 
+            background={Background} 
+            mediaWidth='100%' 
+            mediaMargin='0'>
+            <Container 
+              direction="row" 
+              justify="center" 
+              margin='24% 0 0 0' 
+              mediaMargin='30% 0 0 0' 
+              maxMargin='20% 0 0 0' 
+              mediaDirection='row' 
+              mediaJustify='space-evenly'>
+              <Button 
+                onClick={(e) => filterMenu(e, "breakfast")} 
+                text="Café da Manhã" 
+                color="white" 
+                background="#0AA7E2" 
+                height="86%" 
+                width="34%" 
+                font="22px"/>
+              <Button 
+                onClick={(e) => filterMenu(e, "lunch")} 
+                text="Menu Principal" 
+                color="white" 
+                background="#0AA7E2" 
+                height="86%" 
+                width="34%" 
+                font="22px" />
+            </Container>
+            <Container 
+              direction="row" 
+              wrap="wrap" 
+              justify="center" 
+              padding="14px 0 0 0" 
+              margin="28px 0" 
+              mediaDirection='row'>
+              {typeOrder === "breakfast" ? filterBreakfast.map(elem => (
+                <Menu
+                  key={elem.item}
+                  img={elem.img}
+                  alt={elem.item}
+                  title={elem.item}
+                  price={`${elem.price} R$`}
+                  onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
+                />
+                )) : filterLunch.map(elem => (
+                <Menu
+                  key={elem.item}
+                  img={elem.img}
+                  alt={elem.item}
+                  title={elem.item}
+                  price={`R$ ${elem.price}`}
+                  onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
+                />
+              ))}
+            </Container>
+            {modalIsOpen ? (
+              <Modal 
+                onClose={() => setModalIsOpen(false)} 
+                onChangeBurger={(e) => setBurgerInfo(e.target.value)}
+                onChangeExtra={(e) => setExtra(e.target.value)}
+                onClick={burgerOrder}
               />
-            )) : filterLunch.map(elem => (
-              <Menu
-                key={elem.item}
-                img={elem.img}
-                alt={elem.item}
-                title={elem.item}
-                price={`R$ ${elem.price}`}
-                onClick={(event) => clickMenuItem(event, elem.price, elem.item)}
-              />
-            ))}
-          </Container>
-          {modalIsOpen ? (
-            <Modal
-              onClose={() => setModalIsOpen(false)}
-              onChangeBurger={(e) => setBurgerInfo(e.target.value)}
-              onChangeExtra={(e) => setExtra(e.target.value)}
-              onClick={burgerOrder}
-            />
-          ) : null}
+            ) : null}
         </Container>
         <Container direction="column" height="auto" width="36%" margin='8% 0 0 0' mediaAlign='center'>
           <ResumeOrder>
