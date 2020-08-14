@@ -10,10 +10,9 @@ Portanto, pensando numa melhor experiência do usuário, primeiro desenvolvemos 
 
 Tendo isso em vista, elaboramos as telas e montamos wareframes. Foi dada atenção especial aos espaçamentos e tamanhos dos itens, uma vez que a aplicação foi desenvolvida focada na usabilidade em tablets. 
 
-| ![Tela de Login](/src/assets/login.png) |
+| ![Tela de Login](/src/assets/login.PNG) |
 |:--:|
 | *Tela de Login* |
-
 
 | ![Tela de Resgistro](/src/assets/registro.PNG) |
 |:--:|
@@ -26,7 +25,6 @@ Tendo isso em vista, elaboramos as telas e montamos wareframes. Foi dada atenç�
 | ![Tela de Cozinha](/src/assets/cozinha.PNG) |
 |:--:|
 | *Tela de Cozinha* |
-
 
 Posteriormente, foi desenvolvido protótipo tanto da tela de Login como da tela de Registro, onde este layout norteou o desenvolvimento das demais telas do projeto e desenvolvimento de componentes.
 
