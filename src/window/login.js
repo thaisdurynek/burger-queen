@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Input from '../components/auth/Input.js';
-import Button from '../components/auth/Button.js';
-import Title from '../components/auth/Title.js';
-import Error from '../components/auth/Error.js';
-import Redirection from '../components/auth/Link.js';
-import Background from '../components/auth/Background.js';
-import Container from '../components/auth/Container.js';
-import Main from '../components/auth/Main.js';
-import Forms from '../components/auth/Forms.js';
+import Input from '../components/Input.js';
+import Button from '../components/Button.js';
+import Text from '../components/Text.js';
+import Error from '../components/Alert.js';
+import Redirection from '../components/Link.js';
+import Background from '../components/Background.js';
+import Container from '../components/container/ContainerLogo.js';
+import Main from '../components/Main.js';
+import Forms from '../components/Forms.js';
 import firebase from '../configs/FirebaseConfig.js';
 import verification from '../configs/FirebaseAuth.js';
 import errorFirebase from '../configs/FirebaseErrors.js';
@@ -36,7 +36,7 @@ const Login = (props) => {
     <Container>
       <Background />
       <Main>
-        <Title text="Login" />
+        <Text text="Login"  size="52px"/>
         <Forms onSubmit>
           <Input onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
           <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />

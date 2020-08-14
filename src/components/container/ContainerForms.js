@@ -4,8 +4,7 @@ import styled from 'styled-components';
 const Radio = styled.div`
 	color: gray;
 	margin-bottom: 10px;
-  font-family: 'Inter', sans-serif;
-	div {
+  div {
 		display: flex;
 		justify-content: space-evenly;
 		margin: 12px;
