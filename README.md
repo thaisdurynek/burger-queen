@@ -15,26 +15,26 @@ Tendo isso em vista, elaboramos as telas e montamos wareframes. Foi dada atenç�
 | *Tela de Login* |
 
 
-| ![Tela de Resgistro](/src/assets/registro.png) |
+| ![Tela de Resgistro](/src/assets/registro.PNG) |
 |:--:|
 | *Tela de Registro* |
 
-| ![Tela de Salão](/src/assets/salao.png) |
+| ![Tela de Salão](/src/assets/salao.PNG) |
 |:--:|
 | *Tela de Salão* |
 
-| ![Tela de Cozinha](/src/assets/cozinha.png) |
+| ![Tela de Cozinha](/src/assets/cozinha.PNG) |
 |:--:|
 | *Tela de Cozinha* |
 
 
 Posteriormente, foi desenvolvido protótipo tanto da tela de Login como da tela de Registro, onde este layout norteou o desenvolvimento das demais telas do projeto e desenvolvimento de componentes.
 
-| ![Protótipo Login](/src/assets/PROlogin.png) |
+| ![Protótipo Login](/src/assets/PROlogin.PNG) |
 |:--:|
 | *Protótipo Login* |
 
-| ![Protótipo Registro](/src/assets/PROregistro.png) |
+| ![Protótipo Registro](/src/assets/PROregistro.PNG) |
 |:--:|
 | *Protótipo Registro* |
 
