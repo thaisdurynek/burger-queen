@@ -25,7 +25,7 @@ const Historic = () => {
   useEffect(() => {
     async function fireCall() {
       await firebase.firestore().collection('Orders').where("status", "==", "Pedido concluído!").onSnapshot((snapshot) => {
-        const newOrder = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        const newOrder = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setOrder(newOrder);
       });
     };
