@@ -11,7 +11,7 @@ const Historic = () => {
   useEffect(() => {
     async function fireCall() {
       await firebase.firestore().collection('Orders').where("status", "==", "Pedido concluído!").onSnapshot((snapshot) => {
-        const newOrder = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        const newOrder = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setOrder(newOrder);
       });
     };
@@ -41,15 +41,15 @@ const Historic = () => {
     <Container direction="column">
       <Link to="/Kitchen">Voltar Tela Cozinha</Link>
       {order.map((request) => (
-        <Container justify="space-around" color="gray" margin="20px 0">
+        <Container key={request.id} justify="space-around" color="gray" margin="20px 0">
           <Container direction="column">
             {resumeOrder(request.order)}
             {request.observation ? <p>Observações: {request.observation}</p> : null}
           </Container>
           <Container direction="column">
-            <h4>{request.table}</h4>
-            <h4>{request.name}</h4>
-            <h4>{request.worker}</h4>
+            <h4>Mesa: {request.table}</h4>
+            <h4>Cliente: {request.name}</h4>
+            <h4>Funcionário: {request.worker}</h4>
           </Container>
         </Container>
       ))}

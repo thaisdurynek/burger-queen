@@ -6,7 +6,6 @@ import SignOut from '../configs/FirebaseSignOut';
 import Container from '../components/container/ContainerMenu.js';
 import Button from '../components/Button.js';
 //import Check from '../assets/check.png';
-import styled from 'styled-components';
 import Links from '../components/Link';
 
 // const Checked = styled.img`
@@ -21,7 +20,16 @@ const Kitchen = (props) => {
   useEffect(() => {
     async function fireCall() {
       await firebase.firestore().collection('Orders').where("status", "==", "Encaminhado para a cozinha").onSnapshot((snapshot) => {
-        const newOrder = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        const newOrder = snapshot.docs.map((doc) => {
+          if (doc.data().status === 'Encaminhado para a cozinha') {
+            return ({
+              id: doc.id,
+              ...doc.data()
+            });
+          } else {
+            return false
+          };
+        });
         setOrder(newOrder);
       });
     };
@@ -52,6 +60,12 @@ const Kitchen = (props) => {
     SignOut(props);
   }
 
+  const updateOrder = (e, key) => {
+    e.preventDefault();
+    firebase.firestore().collection('Orders').doc(key)
+      .update({ status: "Encaminhado para o salão" });
+  };
+
   return (
     <Container direction="column" color="#E8E8E8">
       <Container justify="space-around" align='baseline' color="#E8E8E8">
@@ -60,16 +74,29 @@ const Kitchen = (props) => {
       </Container>
       <Container direction="column" color="#E8E8E8">
         {order.map((request) => (
-          <Container justify="space-between" color="white" margin="3%" mediaMargin='3%' mediaAlign='center' maxMargin='3% 20%' padding="40px 20px 40px 40px" radius="15px">
+          <Container
+            key={request.id}
+            justify="space-between" 
+            color="white" 
+            margin="3%" 
+            mediaMargin='3%' 
+            mediaAlign='center' 
+            maxMargin='3% 20%' 
+            padding="40px 20px 40px 40px" 
+            radius="15px">
             <Container direction="column" mediaAlign='center' justify='center' align="flex-start" font='18px'>
               {resumeOrder(request.order)}
               {request.observation ? <p>Observações: {request.observation}</p> : null}
             </Container>
             <Container direction="column" justify='center' align='center' width='300px'>
-              <h4>{request.table}</h4>
-              <h4>{request.name}</h4>
-              <h4>{request.worker}</h4>
-              <Button margin='30px 0 0 0' width='200px' text="Concluir Pedido" />
+              <h4>Mesa: {request.table}</h4>
+              <h4>Cliente: {request.name}</h4>
+              <h4>Funcionário: {request.worker}</h4>
+              <Button 
+                margin='30px 0 0 0' 
+                width='200px' 
+                text="Concluir Pedido"
+                onClick={(e) => updateOrder(e, request.id)} />
               {/* <Checked src={Check} alt="Check"/> */}
             </Container>
           </Container>
