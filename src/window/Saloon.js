@@ -56,7 +56,7 @@ const Saloon = (props) => {
   }, [bell])
 
   useEffect(() => {
-    const timer = setTimeout(() => { setAlert('') }, 2000);
+    const timer = setTimeout(() => { setAlert(''); setErr('') }, 3000);
     return () => clearTimeout(timer);
   }, [alert, err]);
 
@@ -107,7 +107,7 @@ const Saloon = (props) => {
     const nameOrder = finalOrder.name;
     const tableOrder = finalOrder.table;
 
-    if (nameOrder === undefined || tableOrder === undefined) {
+    if (nameOrder === "" || tableOrder === "") {
       setErr("Preencha o nº da mesa e o nome do cliente!")
     } else if (order.length === 0) {
       setErr("Sua comanda esta vazia. Adicione itens!")
