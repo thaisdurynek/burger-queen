@@ -11,6 +11,7 @@ const Button = styled.button`
   color: ${props => props.color || "#FFF"};  
   font-size: ${props => props.font || "18px"};
   margin:${props => props.margin || "12px"};
+  outline: none;
   &:hover {
     background-color: #1E7B9E;
     color: white;
@@ -18,6 +19,10 @@ const Button = styled.button`
   }
   @media (min-width: 320px) and (max-width: 500px) {
     margin: 16px 0 12px 0;
+    font-size: ${props => props.mediaFont || "14px"};
+    width: ${props => props.mediaWidth || "auto"};
+    height: ${props => props.mediaHeight || "auto"};
+    align-items: center;
   };
 `;
 
@@ -33,6 +38,7 @@ function ButtonLogin(props) {
     color={props.color}
     font={props.font}
     margin={props.margin}
+    mediaFont={props.mediaFont}
     >{props.text}</Button>
   );
 };
