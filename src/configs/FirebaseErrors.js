@@ -7,6 +7,7 @@ const errorsFirebase = {
   'auth/wrong-password': 'Senha incorreta.',
   'auth/user-not-found': 'Usuário não cadastrado.',
   'auth/account-exists-with-differente-credential': 'Usuário já logado.',
+  'auth/email-already-in-use': 'Email já cadastrado',
 };
 
 export default errorsFirebase;
