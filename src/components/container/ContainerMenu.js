@@ -25,7 +25,7 @@ const Container = styled.div`
   @media (min-width: 320px) and (max-width: 500px){
     flex-direction: ${props => props.mediaDirection || "column"};
     justify-content: ${props => props.mediaJustify || "none"};
-    align-content: ${props => props.mediaAlign || "none"};
+    align-items: ${props => props.mediaAlign || "none"};
     width: ${props => props.mediaWidth || "auto"};
     height: ${props => props.mediaHeight || "auto"};
     margin: ${props => props.mediaMargin || "1%"};

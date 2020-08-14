@@ -5,6 +5,14 @@ import firebase from '../configs/FirebaseConfig.js';
 import SignOut from '../configs/FirebaseSignOut';
 import Container from '../components/container/ContainerMenu.js';
 import Button from '../components/Button.js';
+//import Check from '../assets/check.png';
+import styled from 'styled-components';
+import Links from '../components/Link';
+
+// const Checked = styled.img`
+//   margin: 30px 0 0 0;
+//   width: 70px;
+// `;
 
 const Kitchen = (props) => {
 
@@ -45,23 +53,24 @@ const Kitchen = (props) => {
   }
 
   return (
-    <Container direction="column">
-      <Container justify="space-around">
-        <Link to="/Historic">Histórico</Link>
-        <Button onClick={logout} text="Sair" width="14%" height="46px" />
+    <Container direction="column" color="#E8E8E8">
+      <Container justify="space-around" align='baseline' color="#E8E8E8">
+        <Links font='40px'><Link to="/Historic">Histórico de Pedidos</Link></Links>
+        <Button onClick={logout} text="Sair" width="14%" height="" />
       </Container>
-      <Container direction="column">
+      <Container direction="column" color="#E8E8E8">
         {order.map((request) => (
-          <Container justify="space-around" color="gray" margin="20px 0">
-            <Container direction="column">
+          <Container justify="space-between" color="white" margin="3%" mediaMargin='3%' mediaAlign='center' maxMargin='3% 20%' padding="40px 20px 40px 40px" radius="15px">
+            <Container direction="column" mediaAlign='center' justify='center' align="flex-start" font='18px'>
               {resumeOrder(request.order)}
               {request.observation ? <p>Observações: {request.observation}</p> : null}
             </Container>
-            <Container direction="column">
+            <Container direction="column" justify='center' align='center' width='300px'>
               <h4>{request.table}</h4>
               <h4>{request.name}</h4>
               <h4>{request.worker}</h4>
-              <Button text="Concluir Pedido" />
+              <Button margin='30px 0 0 0' width='200px' text="Concluir Pedido" />
+              {/* <Checked src={Check} alt="Check"/> */}
             </Container>
           </Container>
         ))}

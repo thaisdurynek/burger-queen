@@ -37,7 +37,7 @@ const Saloon = (props) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [order, finalOrder, burgerInfo, burger, extra, readyOrders]);
+  }, [order, finalOrder, burgerInfo, burger, extra]);
 
   useEffect(() => {
     firebase.firestore().collection('Orders').get().then((snapshot) => {
@@ -53,12 +53,12 @@ const Saloon = (props) => {
       })
       setReadyOrders(orders.filter(elem => elem !== false))
     })
-  }, [])
+  }, [bell])
 
   useEffect(() => {
     const timer = setTimeout(() => { setAlert('') }, 2000);
     return () => clearTimeout(timer);
-  }, [alert, err, readyOrders]);
+  }, [alert, err]);
 
   const changeBell = () => {
     if (bell === BellNotified) {
@@ -135,7 +135,6 @@ const Saloon = (props) => {
   const delivered = (event, id, key) => {
     event.preventDefault();
     readyOrders.splice(key, 1);
-    console.log([...readyOrders])
     setReadyOrders([...readyOrders]);
     return firebase.firestore().collection('Orders').doc(id).update({
       status: 'Pedido concluído!'
