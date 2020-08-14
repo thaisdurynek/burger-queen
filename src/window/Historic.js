@@ -47,9 +47,9 @@ const Historic = () => {
             {request.observation ? <p>Observações: {request.observation}</p> : null}
           </Container>
           <Container direction="column">
-            <h4>{request.table}</h4>
-            <h4>{request.name}</h4>
-            <h4>{request.worker}</h4>
+            <h4>Mesa: {request.table}</h4>
+            <h4>Cliente: {request.name}</h4>
+            <h4>Funcionário: {request.worker}</h4>
           </Container>
         </Container>
       ))}

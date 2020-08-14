@@ -13,7 +13,16 @@ const Kitchen = (props) => {
   useEffect(() => {
     async function fireCall() {
       await firebase.firestore().collection('Orders').where("status", "==", "Encaminhado para a cozinha").onSnapshot((snapshot) => {
-        const newOrder = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        const newOrder = snapshot.docs.map((doc) => {
+          if (doc.data().status === 'Encaminhado para a cozinha') {
+            return ({
+              id: doc.id,
+              ...doc.data()
+            });
+          } else {
+            return false
+          };
+        });
         setOrder(newOrder);
       });
     };
@@ -44,6 +53,12 @@ const Kitchen = (props) => {
     SignOut(props);
   }
 
+  const updateOrder = (e, key) => {
+    e.preventDefault();
+    firebase.firestore().collection('Orders').doc(key)
+      .update({ status: "Encaminhado para o salão" });
+  };
+
   return (
     <Container direction="column">
       <Container justify="space-around">
@@ -52,16 +67,16 @@ const Kitchen = (props) => {
       </Container>
       <Container direction="column">
         {order.map((request) => (
-          <Container justify="space-around" color="gray" margin="20px 0">
+          <Container justify="space-around" color="gray" margin="20px 0" key={request.id}>
             <Container direction="column">
               {resumeOrder(request.order)}
               {request.observation ? <p>Observações: {request.observation}</p> : null}
             </Container>
             <Container direction="column">
-              <h4>{request.table}</h4>
-              <h4>{request.name}</h4>
-              <h4>{request.worker}</h4>
-              <Button text="Concluir Pedido" />
+              <h4>Mesa: {request.table}</h4>
+              <h4>Cliente: {request.name}</h4>
+              <h4>Funcinário: {request.worker}</h4>
+              <Button text="Concluir Pedido" onClick={(e) => updateOrder(e, request.id)} />
             </Container>
           </Container>
         ))}
