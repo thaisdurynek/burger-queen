@@ -37,7 +37,7 @@ const Saloon = (props) => {
       const newMenu = snapshot.docs.map((doc) => ({ ...doc.data() }))
       setMenu(newMenu)
     })
-  }, [order, finalOrder, burgerInfo, burger, extra]);
+  }, []);
 
   useEffect(() => {
     firebase.firestore().collection('Orders').get().then((snapshot) => {

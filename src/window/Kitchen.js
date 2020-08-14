@@ -79,17 +79,42 @@ const Kitchen = (props) => {
       </Container>
       <Container direction="column" color="#E8E8E8">
         {order.map((request) => (
-          <Container key={request.id} justify="space-between" color="white" margin="3%" mediaMargin='3%' mediaAlign='center' maxMargin='3% 20%' padding="40px 20px 40px 40px" radius="15px">
-            <Container direction="column" mediaAlign='center' justify='center' align="flex-start" font='18px'>
+          <Container 
+            key={request.id} 
+            justify="space-between" 
+            color="white" 
+            margin="3%" 
+            mediaMargin='3%' 
+            mediaAlign='center' 
+            maxMargin='3% 20%' 
+            padding="40px 20px 40px 40px" 
+            radius="15px">
+            <Container 
+              direction="column" 
+              mediaAlign='center' 
+              justify='center' 
+              align="flex-start" 
+              font='18px'>
               {resumeOrder(request.order)}
-              {request.observation ? <Text color="#FF6347" size="16px" padding="6px 0" margin="0" text={"Observações: " + request.observation}></Text> : null}
+              {request.observation ? (
+                <Text 
+                  color="#FF6347" 
+                  size="16px" 
+                  padding="6px 0" 
+                  margin="0" 
+                  text={"Observações: " + request.observation}>
+                </Text>) : null}
             </Container>
             <Container direction="column" justify='center' align='center' width='340px'>
               <h4>Mesa: {request.table}</h4>
               <h4>Cliente: {request.name}</h4>
               <h4>Funcinário: {request.worker}</h4>
-              <Button text="Concluir Pedido" onClick={(e) => updateOrder(e, request.id)} width="56%" height="50px" margin="18px 0 0 0" />
-
+              <Button 
+                text="Concluir Pedido" 
+                onClick={(e) => updateOrder(e, request.id)} 
+                width="56%" 
+                height="50px" 
+                margin="18px 0 0 0" />
             </Container>
           </Container>
         ))}
