@@ -88,7 +88,7 @@ const Saloon = (props) => {
   const burgerOrder = (e) => {
     e.preventDefault();
     let price = burger.price;
-    if (extra !== ' Nenhum') {
+    if (extra !== 'Nenhum') {
       price = burger.price + 1;
     }
     setOrder([...order, {

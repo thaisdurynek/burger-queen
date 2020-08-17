@@ -7,7 +7,7 @@ const verification = (props) => {
       firebase.firestore().collection('usuario').doc(uid).get()
         .then((doc) => (doc.data().role))
         .then((role) => {
-          if (role === ' Atendimento') {
+          if (role === 'Atendimento') {
             props.history.push('./Saloon')
           } else {
             props.history.push('./Kitchen')

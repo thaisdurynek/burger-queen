@@ -62,8 +62,8 @@ const Register = (props) => {
           <Radio>
             <p>Cargo:</p>
             <div>
-              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Atendimento' name='cargo' />
-              <Input onChange={(e) => setRole(e.target.value)} type='radio' value=' Cozinha' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value='Atendimento' name='cargo' />
+              <Input onChange={(e) => setRole(e.target.value)} type='radio' value='Cozinha' name='cargo' />
             </div>
           </Radio>
           <Input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Senha' />

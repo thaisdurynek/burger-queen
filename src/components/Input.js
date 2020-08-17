@@ -20,7 +20,7 @@ const Input = (props) => {
           name={props.name}
           onChange={props.onChange}
           checked={props.checked}
-        />
+        /> &nbsp;
         {props.value}
       </label>
     );

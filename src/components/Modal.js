@@ -43,15 +43,15 @@ const Modal = (props) => {
             <Close onClick={props.onClose}>X</Close>
             <h3>Tipo de hamburguer</h3>
             <Container direction='row' justify='space-evenly'>
-              <Input onChange={props.onChangeBurger} type='radio' value=' Bovino' name='hamburger'/>
-              <Input onChange={props.onChangeBurger} type='radio' value=' Frango' name='hamburger'/>
-              <Input onChange={props.onChangeBurger} type='radio' value=' Vegano' name='hamburger'/>
+              <Input onChange={props.onChangeBurger} type='radio' value='Bovino' name='hamburger'/>
+              <Input onChange={props.onChangeBurger} type='radio' value='Frango' name='hamburger'/>
+              <Input onChange={props.onChangeBurger} type='radio' value='Vegano' name='hamburger'/>
             </Container>
             <h3>Extra</h3>
             <Container direction='row' justify='space-evenly'>
-              <Input onChange={props.onChangeExtra} type='radio' value=' Ovo' name='extra'/>
-              <Input onChange={props.onChangeExtra} type='radio' value=' Queijo' name='extra'/>
-              <Input onChange={props.onChangeExtra} type='radio' value=' Nenhum' name='extra'/>
+              <Input onChange={props.onChangeExtra} type='radio' value='Ovo' name='extra'/>
+              <Input onChange={props.onChangeExtra} type='radio' value='Queijo' name='extra'/>
+              <Input onChange={props.onChangeExtra} type='radio' value='Nenhum' name='extra'/>
             </Container>
             <Button onClick={props.onClick} text='Enviar' />
           </Container>
